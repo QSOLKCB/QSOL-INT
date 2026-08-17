@@ -1,0 +1,13 @@
+{
+  "id": "INT-BAT-003",
+  "battery": "conflict_preservation",
+  "rule": "preserve_paths",
+  "description": "Material evidence conflict must remain visible after recovery.",
+  "synthetic": true,
+  "fixture": {
+    "before": {"claim": {"epistemic_state": "conflict", "conflict_sources": ["source.synthetic.a", "source.synthetic.b"]}},
+    "after": {"claim": {"epistemic_state": "conflict", "conflict_sources": ["source.synthetic.a", "source.synthetic.b"]}},
+    "paths": ["claim.epistemic_state", "claim.conflict_sources"]
+  },
+  "expected": {"result": "pass"}
+}

@@ -1,0 +1,9 @@
+{
+  "id": "INT-BAT-009",
+  "battery": "stale_parent",
+  "rule": "parent_freshness_guard",
+  "description": "Without PR #2 live drift evidence, current-parent compatibility remains untested and must not be inferred from the pinned composition result.",
+  "synthetic": true,
+  "fixture": {"pinned_parent_evidence_valid": true, "live_parent_freshness_checked": false},
+  "expected": {"result": "pass", "compatibility": "untested", "requires_review": true, "failure_code": "INT_PARENT_FRESHNESS_UNTESTED"}
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT composition battery contract",
+  "type": "object",
+  "required": ["type", "protocol", "version", "status", "scope", "core_invariants", "compatibility_states", "case_result_states", "live_parent_freshness", "rules", "failure_codes"],
+  "properties": {
+    "type": {"const": "qsol-int-composition-battery-contract"},
+    "protocol": {"const": "QSOL-INT"},
+    "version": {"type": "string"},
+    "status": {"const": "implemented"},
+    "scope": {"const": "pinned_parent_evidence_only"},
+    "core_invariants": {"type": "array", "minItems": 4, "uniqueItems": true, "items": {"type": "string"}},
+    "compatibility_states": {"type": "array", "items": {"enum": ["compatible", "incompatible", "untested", "unknown"]}, "minItems": 4, "maxItems": 4, "uniqueItems": true},
+    "case_result_states": {"type": "array", "items": {"enum": ["pass", "fail"]}, "minItems": 2, "maxItems": 2, "uniqueItems": true},
+    "live_parent_freshness": {"const": "untested_until_pr2"},
+    "rules": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "failure_codes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

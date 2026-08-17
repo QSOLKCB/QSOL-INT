@@ -1,0 +1,9 @@
+{
+  "id": "INT-BAT-005",
+  "battery": "cross_mode_boundary",
+  "rule": "cross_mode_bridge",
+  "description": "Material cross-domain inference without a declared bridge must be blocked rather than guessed.",
+  "synthetic": true,
+  "fixture": {"primary_mode": "legal", "secondary_modes": ["science"], "material_cross_domain_inference": true, "declared_bridges": []},
+  "expected": {"result": "pass", "decision": "block", "failure_code": "INT_CROSS_MODE_BRIDGE_REQUIRED"}
+}

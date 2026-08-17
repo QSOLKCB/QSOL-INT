@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qsol.example/schema/composition-case.schema.json",
+  "title": "QSOL-INT composition battery case",
+  "type": "object",
+  "required": ["id", "battery", "rule", "description", "synthetic", "fixture", "expected"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^INT-BAT-[0-9]{3}$"},
+    "battery": {"type": "string", "minLength": 1},
+    "rule": {"enum": ["preserve_paths", "cross_mode_bridge", "recovery_authority", "hash_authority", "capability_guard", "parent_freshness_guard"]},
+    "description": {"type": "string", "minLength": 1},
+    "synthetic": {"const": true},
+    "fixture": {"type": "object"},
+    "expected": {"type": "object", "required": ["result"], "properties": {"result": {"enum": ["pass"]}}}
+  },
+  "additionalProperties": false
+}

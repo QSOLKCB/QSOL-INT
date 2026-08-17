@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qsol.example/schema/compatibility-report.schema.json",
+  "title": "QSOL-INT pinned-parent compatibility report",
+  "type": "object",
+  "required": ["type", "protocol", "version", "scope", "compatibility", "live_parent_freshness", "parents", "battery", "case_results", "summary", "fingerprint_sha256"],
+  "properties": {
+    "type": {"const": "qsol-int-compatibility-report"},
+    "protocol": {"const": "QSOL-INT"},
+    "version": {"type": "string"},
+    "scope": {"const": "pinned_parent_evidence_only"},
+    "compatibility": {"enum": ["compatible", "incompatible", "untested", "unknown"]},
+    "live_parent_freshness": {"enum": ["compatible", "incompatible", "untested", "unknown"]},
+    "parents": {"type": "object"},
+    "battery": {"type": "object"},
+    "case_results": {"type": "array"},
+    "summary": {"type": "object"},
+    "fingerprint_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

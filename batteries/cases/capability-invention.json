@@ -1,0 +1,9 @@
+{
+  "id": "INT-BAT-008",
+  "battery": "capability_invention",
+  "rule": "capability_guard",
+  "description": "INT must reject ARK capabilities that are absent from the pinned parent registry.",
+  "synthetic": true,
+  "fixture": {"requested_capabilities": ["verify_sha256", "teleport_semantic_state"]},
+  "expected": {"result": "pass", "decision": "reject", "failure_code": "INT_CAPABILITY_INVENTION"}
+}

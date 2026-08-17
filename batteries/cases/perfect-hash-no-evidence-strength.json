@@ -1,0 +1,37 @@
+{
+  "id": "INT-BAT-007",
+  "battery": "perfect_hash_does_not_increase_evidence_strength",
+  "rule": "hash_authority",
+  "description": "Perfect digest verification proves byte identity only; it cannot establish authorship, source identity, signature, trustworthiness, content truth, or upgrade an unknown claim.",
+  "synthetic": true,
+  "fixture": {
+    "before": {
+      "claim": {
+        "epistemic_state": "unknown",
+        "claim_maturity": "UNKNOWN",
+        "authorship": "unverified",
+        "content_truth": "unverified",
+        "original_source": "unverified",
+        "digital_signature": "absent",
+        "trustworthiness": "unverified"
+      }
+    },
+    "integrity": {
+      "sha256_match": true
+    },
+    "after": {
+      "claim": {
+        "epistemic_state": "unknown",
+        "claim_maturity": "UNKNOWN",
+        "authorship": "unverified",
+        "content_truth": "unverified",
+        "original_source": "unverified",
+        "digital_signature": "absent",
+        "trustworthiness": "unverified"
+      }
+    }
+  },
+  "expected": {
+    "result": "pass"
+  }
+}

@@ -1,0 +1,36 @@
+name: QSOL-INT Composition Batteries
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  composition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate bootstrap contracts
+        run: python3 tools/validate_int.py
+      - name: Run pinned-parent composition batteries
+        run: python3 tools/run_batteries.py
+      - name: Validate committed compatibility report
+        run: python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bootstrap.json
+      - name: Verify report regeneration is byte-identical
+        run: |
+          python3 tools/run_batteries.py --write-report /tmp/pinned-bootstrap.json
+          cmp compatibility/reports/pinned-bootstrap.json /tmp/pinned-bootstrap.json
+      - name: Run composition regressions
+        run: python3 -m unittest tests.test_composition -v
+      - name: Parse PR3 JSON artifacts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for root in (Path('batteries'), Path('compatibility'), Path('ai'), Path('schema')):
+              for path in root.rglob('*.json'):
+                  json.loads(path.read_text(encoding='utf-8'))
+                  print(path)
+          PY

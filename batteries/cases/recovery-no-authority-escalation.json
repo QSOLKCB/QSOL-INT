@@ -1,0 +1,13 @@
+{
+  "id": "INT-BAT-006",
+  "battery": "recovery_without_authority_escalation",
+  "rule": "recovery_authority",
+  "description": "Successful deterministic recovery must not strengthen epistemic state or claim maturity.",
+  "synthetic": true,
+  "fixture": {
+    "before": {"claim": {"epistemic_state": "inferred", "claim_maturity": "PROPOSED"}},
+    "recovery": {"success": true, "tier": "T3"},
+    "after": {"claim": {"epistemic_state": "inferred", "claim_maturity": "PROPOSED"}}
+  },
+  "expected": {"result": "pass"}
+}

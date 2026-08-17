@@ -1,0 +1,13 @@
+{
+  "id": "INT-BAT-001",
+  "battery": "provenance_retention",
+  "rule": "preserve_paths",
+  "description": "Recovery must retain claim-local provenance and visibility metadata exactly.",
+  "synthetic": true,
+  "fixture": {
+    "before": {"claim": {"epistemic_state": "retrieved", "claim_maturity": "SUPPORTED", "provenance": {"source_id": "source.synthetic.primary", "locator": "synthetic://fixture/1", "transformations": []}, "visibility": "public"}},
+    "after": {"claim": {"epistemic_state": "retrieved", "claim_maturity": "SUPPORTED", "provenance": {"source_id": "source.synthetic.primary", "locator": "synthetic://fixture/1", "transformations": []}, "visibility": "public"}},
+    "paths": ["claim.provenance", "claim.visibility"]
+  },
+  "expected": {"result": "pass"}
+}

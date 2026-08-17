@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT battery index",
+  "type": "object",
+  "required": ["type", "protocol", "version", "contract", "scope", "cases", "required_case_ids", "report_path", "runner", "live_parent_freshness", "case_sha256"],
+  "properties": {
+    "type": {"const": "qsol-int-battery-index"},
+    "protocol": {"const": "QSOL-INT"},
+    "version": {"type": "string"},
+    "contract": {"const": "ai/composition-battery-contract.json"},
+    "scope": {"const": "pinned_parent_evidence_only"},
+    "cases": {"type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": {"type": "string"}},
+    "required_case_ids": {"type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": {"type": "string", "pattern": "^INT-BAT-[0-9]{3}$"}},
+    "report_path": {"const": "compatibility/reports/pinned-bootstrap.json"},
+    "runner": {"const": "tools/run_batteries.py"},
+    "live_parent_freshness": {"const": "untested"},
+    "case_sha256": {"type": "object", "minProperties": 9, "maxProperties": 9, "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+  },
+  "additionalProperties": false
+}
