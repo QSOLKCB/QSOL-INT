@@ -1,0 +1,15 @@
+{
+  "type": "qsol-int-integration-contract",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "core_invariant": "INTEGRATION_MUST_NOT_INCREASE_SEMANTIC_AUTHORITY",
+  "parent_ownership": {
+    "QSOL-SUBSTRATE": ["epistemic_state","claim_maturity","scenario","register","mode_policy","source_policy","public_boundary"],
+    "QSOL-ARK": ["recovery_tiers","tier_capabilities","tier_implementation_state","minimum_recoverable_substrate","recovery_behavior"],
+    "QSOL-INT": ["cross_protocol_composition","compatibility_evidence","drift_detection","integration_validation"]
+  },
+  "projection_boundary": {"source_fixture":"parent-owned evidence or contract fixture","integration_receiver":"derived INT visualization, report, mapping, or reconstruction","receiver_is_source":false,"receiver_is_evidence":false},
+  "composition_rules": ["preserve_parent_semantics_without_redefinition","preserve_substrate_uncertainty_and_provenance_across_recovery","recovery_success_does_not_upgrade_epistemic_state_or_claim_maturity","substrate_state_does_not_force_a_fixed_ark_tier","request_only_ark_capabilities_declared_by_the_parent_registry","delegate_ark_tier_selection_to_ark_mrs","do_not_treat_ark_tier_rank_as_capability_inheritance","do_not_treat_hash_integrity_as_authorship_authentication_or_truth","live_parent_drift_requires_explicit_compatibility_re_evaluation","source_design_inputs_are_noncanonical_until_explicitly_promoted","integration_receivers_are_derived_and_do_not_become_source_evidence"],
+  "forbidden": ["canonical_epistemic_to_fixed_tier_mapping","invented_parent_capability","parent_semantic_redefinition","epistemic_authority_escalation","implicit_tier_capability_inheritance","hash_equals_signature_claim","stale_pin_silently_overriding_live_parent_state","integration_receiver_promoted_to_source"],
+  "fail_closed": ["unknown_parent_version","unknown_parent_contract_identity","undeclared_ark_capability_request","material_parent_drift","ambiguous_provenance","ambiguous_visibility","ambiguous_canonical_status"]
+}

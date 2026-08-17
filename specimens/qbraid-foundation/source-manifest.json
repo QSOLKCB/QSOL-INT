@@ -1,0 +1,14 @@
+{
+  "type": "qsol-int-source-design-specimen",
+  "protocol": "QSOL-INT",
+  "id": "source.qbraid_haiku_qsol_int_bundle.v1_0_0",
+  "declared_origin": "qBraid/Haiku design bundle supplied by the maintainer",
+  "origin_verification": "user_asserted_not_cryptographically_authenticated",
+  "canonical_or_derived": "noncanonical_design_input",
+  "source_bytes_copied": false,
+  "license": "unknown",
+  "bundle": {"filename":"QSOL-INT-REPORT-BUNDLE-v1.0.0.zip","observed_sha256":"745a62a5360165f019ea4e2195eee5fac8c6f3eb9eeeb07916934611d253fd68","archive_entry_count":9,"receipt_entry_count":6,"receipt_covers_all_archive_entries":false},
+  "archive_entries": ["ARCHITECTURE.md","ARK_REPORT.md","IMPLEMENTATION_PLAN.md","INDEX.md","MANIFEST.txt","README.md","SHA256SUMS","SUBSTRATE_REPORT.md","VERIFICATION-CERTIFICATE.txt"],
+  "receipt_entries": ["ARCHITECTURE.md","ARK_REPORT.md","IMPLEMENTATION_PLAN.md","INDEX.md","README.md","SUBSTRATE_REPORT.md"],
+  "use": "architecture_inspiration_and_epistemic_integration_specimen_only"
+}

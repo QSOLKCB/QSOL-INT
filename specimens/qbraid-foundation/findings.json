@@ -1,0 +1,13 @@
+{
+  "type": "qsol-int-design-findings",
+  "protocol": "QSOL-INT",
+  "source_id": "source.qbraid_haiku_qsol_int_bundle.v1_0_0",
+  "findings": [
+    {"id":"QB-001","class":"parent_contract_mismatch","summary":"T0 through T5 are described as five tiers although the pinned ARK registry declares six tier IDs.","canonical_correction":"six_tiers"},
+    {"id":"QB-002","class":"semantic_coupling","summary":"Recovery is presented as a sequential ladder more strongly than ARK MRS permits.","canonical_correction":"capability_based_mrs_not_mandatory_sequence"},
+    {"id":"QB-003","class":"cryptographic_overclaim","summary":"Some prose uses SHA-256 digest matching as proof of authenticity, authorship, or cryptographic signing.","canonical_correction":"digest_match_is_byte_identity_not_signature_or_authorship"},
+    {"id":"QB-004","class":"receipt_coverage_mismatch","summary":"The ZIP contains nine files but its internal SHA256SUMS lists six while verification prose says all nine should verify.","canonical_correction":"archive_9_receipts_6"},
+    {"id":"QB-005","class":"implementation_status_overclaim","summary":"The report says Phase 1 complete or production ready although the newborn repository initially contained only LICENSE and a minimal README.","canonical_correction":"treat_as_design_proposal_not_implementation_evidence"}
+  ],
+  "preserve_source_errors": true
+}

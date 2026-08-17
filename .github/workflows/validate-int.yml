@@ -1,0 +1,28 @@
+name: Validate QSOL-INT
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate integration contracts
+        run: python3 tools/validate_int.py
+      - name: Run regression tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Parse every JSON contract
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for root in (Path('ai'), Path('schema'), Path('specimens')):
+              for path in root.rglob('*.json'):
+                  json.loads(path.read_text(encoding='utf-8'))
+                  print(path)
+          PY

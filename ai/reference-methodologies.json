@@ -1,0 +1,20 @@
+{
+  "type": "qsol-int-reference-methodologies",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "references": [{
+    "id": "reference.substratism_viz",
+    "repository": "https://github.com/QSOLKCB/substratism",
+    "ref": "main",
+    "pinned_commit": "7ba38cf90ca52298aed3819b30f4098f49b36813",
+    "license": "MIT",
+    "canonical_for_int": false,
+    "parent_protocol": false,
+    "source_files": [
+      {"path":"README.md","git_blob_sha1":"b97737d6a6642e03d83e0fb456019b65a3dab893"},
+      {"path":"LICENSE","git_blob_sha1":"fbf3c76b9815faca9dd7a7846e6de532d3c2f155"}
+    ],
+    "adopted_patterns": ["separate_published_or_parent_fixtures_from_project_authored_receivers","deterministic_projection_is_not_evidence_for_underlying_claim","state_reconstruction_limitations_explicitly","prefer_dependency_free_offline_inspection_surfaces_when_practical","derived_visual_audio_or_report_receiver_must_not_redefine_source_semantics"],
+    "int_translation": {"source_fixture":"parent-owned contract or evidence","authored_receiver":"INT-derived mapping, visualization, report, or reconstruction","invariant":"AUTHORED_RECEIVER != SOURCE_EVIDENCE"}
+  }]
+}

@@ -1,0 +1,36 @@
+{
+  "type": "qsol-int-epistemic-recovery-policy",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "principle": "epistemic classification constrains what recovery may claim; it does not itself select a recovery tier",
+  "substrate_fields_to_preserve": [
+    "epistemic_state",
+    "claim_maturity",
+    "scenario",
+    "register",
+    "mode_and_bridge_state",
+    "provenance",
+    "visibility"
+  ],
+  "state_forces_fixed_ark_tier": false,
+  "ark_selection": {
+    "selector": "ARK MRS",
+    "rule": "pass only explicitly requested ARK capabilities that exist in the parent recovery-tier registry",
+    "capability_inheritance": false,
+    "rank_is_not_execution_sequence": true
+  },
+  "current_capability_translation_examples": [
+    {"task_requirement": "verify a declared SHA-256 receipt", "ark_capabilities": ["verify_sha256"]},
+    {"task_requirement": "require a standalone hash implementation", "ark_capabilities": ["standalone_hash_implementation"]},
+    {"task_requirement": "require an offline interactive verifier", "ark_capabilities": ["interactive_offline"]},
+    {"task_requirement": "validate ARK computational-archaeology contracts", "ark_capabilities": ["validate_archaeology_contracts"]},
+    {"task_requirement": "perform model reconstruction", "ark_capabilities": ["model_reconstruction"], "current_result": "ARK_MRS_UNAVAILABLE"}
+  ],
+  "non_ark_integration_requirements": [
+    "preserve_substrate_annotations",
+    "preserve_provenance_closure",
+    "preserve_visibility_boundary",
+    "detect_parent_contract_drift",
+    "prevent_claim_entitlement_escalation"
+  ]
+}
