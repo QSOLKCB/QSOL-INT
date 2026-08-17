@@ -17,7 +17,8 @@ jobs:
       - name: Run regression tests
         run: python3 -m unittest discover -s tests -v
       - name: Parse every JSON contract
-        run: python3 - <<'PY'
+        run: |
+          python3 - <<'PY'
           import json
           from pathlib import Path
           for root in (Path('ai'), Path('schema'), Path('specimens')):
