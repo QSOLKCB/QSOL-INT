@@ -1,0 +1,49 @@
+{
+  "type": "qsol-int-parent-contracts",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "snapshot_date": "2026-08-17",
+  "parents": {
+    "substrate": {
+      "protocol": "QSOL-SUBSTRATE",
+      "repository": "https://github.com/QSOLKCB/QSOL-SUBSTRATE",
+      "ref": "main",
+      "pinned_commit": "60e8cfeefa859df375f9f4d2fdb735edb1249db8",
+      "manifest": {"path": "ai/manifest.json", "git_blob_sha1": "bdc57ae303c2ce5b8498e3867d15d1804a59ba30", "schema_version": "1.0.0"},
+      "contracts": [
+        {"path": "ai/epistemic-contract.json", "git_blob_sha1": "6abd254957843f2a0d42066423a5689099f85b6c"},
+        {"path": "ai/mode-contract.json", "git_blob_sha1": "9c830b095f59bbd948bf9ea5a8b35127121a7d99"}
+      ],
+      "observed_epistemic_states": ["known", "retrieved", "inferred", "unknown", "conflict", "fiction"],
+      "observed_claim_maturity_states": ["ESTABLISHED", "CONSENSUS", "SUPPORTED", "CONTESTED", "PRELIMINARY", "THEORETICAL", "PROPOSED", "SPECULATIVE", "UNKNOWN"],
+      "observed_scenario_states": ["ACTUAL", "HYPOTHETICAL", "COUNTERFACTUAL"],
+      "observed_register_states": ["LITERAL", "FICTIONAL", "SATIRICAL"],
+      "observed_mode_geometry_dimensions": 24
+    },
+    "ark": {
+      "protocol": "QSOL-ARK",
+      "repository": "https://github.com/QSOLKCB/QSOL-ARK",
+      "ref": "main",
+      "pinned_commit": "f2bbf149abb3f8ccbfed158176873d813b66b546",
+      "manifest": {"path": "manifest.json", "git_blob_sha1": "9016cf8e6641d48e639fb69cd5ad7f98a02840b7", "schema_version": "0.2.0"},
+      "contracts": [
+        {"path": "ai/recovery-tiers.json", "git_blob_sha1": "dc7ea8e37772e677ee09f0e3a1447c2700a74789"},
+        {"path": "ai/minimum-recoverable-substrate.json", "git_blob_sha1": "1a4860543488357321e1aad24ce36266769c5f39"}
+      ],
+      "observed_tier_ids": ["T0", "T1", "T2", "T3", "T4", "T5"],
+      "observed_implemented_tiers": ["T0", "T1", "T2", "T3", "T4"],
+      "mrs_rule": "select the lowest-rank implemented tier whose explicitly declared capabilities include every requested capability; never infer or inherit undeclared capabilities",
+      "observed_declared_capabilities": [
+        "inspect_canary", "carry_receipt", "verify_sha256", "verify_canary",
+        "standalone_hash_implementation", "interactive_offline",
+        "validate_archaeology_contracts", "validate_provenance_guards", "select_mrs",
+        "model_reconstruction", "epistemic_classification", "recovery_scoring"
+      ]
+    }
+  },
+  "freshness": {
+    "online_rule": "live parent repository state is authoritative for semantics owned by that parent",
+    "offline_rule": "use the pinned snapshot as last-known evidence and label freshness explicitly",
+    "drift_rule": "a material live-versus-pinned difference must produce INT_PARENT_DRIFT until compatibility is re-evaluated"
+  }
+}

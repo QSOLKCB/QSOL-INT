@@ -1,0 +1,25 @@
+{
+  "type": "qsol-int-integrity-semantics",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "terms": {
+    "digest_match": "observed bytes produce the expected digest under the declared hash algorithm",
+    "integrity": "bytes are unchanged relative to a trusted reference digest or equivalent integrity evidence",
+    "provenance": "declared and evidenced information about source, history, transformation, and custody",
+    "authorship": "identity of the person or entity that created or issued the artifact",
+    "authentication": "evidence that binds an asserted identity or authority to an artifact",
+    "digital_signature": "a cryptographic signature verified with an identified key and algorithm",
+    "content_truth": "whether claims contained in the artifact are correct"
+  },
+  "invariants": [
+    "digest_match_does_not_prove_authorship",
+    "digest_match_does_not_prove_original_source",
+    "digest_match_does_not_prove_content_truth",
+    "sha256_digest_is_not_a_digital_signature",
+    "document_authenticity_does_not_prove_every_claim_inside_document"
+  ],
+  "required_wording": {
+    "sha256_match": "byte identity verified against the stated SHA-256 digest",
+    "signature_absent": "no digital-signature claim may be made without signature evidence"
+  }
+}

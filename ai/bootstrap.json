@@ -1,0 +1,8 @@
+{
+  "type": "qsol-int-bootstrap",
+  "protocol": "QSOL-INT",
+  "version": "0.1.0",
+  "load_order": ["manifest.json","ai/parent-contracts.json","ai/integration-contract.json","ai/integrity-semantics.json","ai/epistemic-recovery-policy.json","ai/reference-methodologies.json"],
+  "rules": ["parent_protocols_retain_semantic_authority","pinned_parent_evidence_is_not_eternal_authority","live_parent_state_may_supersede_stale_pins","unknown_parent_compatibility_fails_closed","substrate_epistemic_state_does_not_directly_select_ark_tier","ark_capabilities_are_explicit_only","ark_mrs_selection_is_delegated_to_ark_semantics","recovery_success_must_not_strengthen_claim_entitlement","digest_match_is_not_authorship_or_truth","source_design_inputs_are_noncanonical_by_default","reference_methodologies_do_not_become_parent_authority","authored_receiver_is_not_source_evidence"],
+  "local_validation": "python3 tools/validate_int.py"
+}
