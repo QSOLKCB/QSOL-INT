@@ -34,11 +34,8 @@ def load(path: str | Path) -> dict:
 def canonical_bytes(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
-def file_sha256(path: str | Path) -> str:
-    p = Path(path)
-    if not p.is_absolute():
-        p = ROOT / p
-    return hashlib.sha256(p.read_bytes()).hexdigest()
+def json_sha256(path: str | Path) -> str:
+    return hashlib.sha256(canonical_bytes(load(path))).hexdigest()
 
 def require(condition: bool, code: str) -> None:
     if not condition:
@@ -80,7 +77,7 @@ def validate_index(index: dict) -> None:
     require(isinstance(receipts, dict) and set(receipts) == EXPECTED_CASE_PATHS, "INT_BATTERY_INDEX_INVALID")
     for path, digest in receipts.items():
         require(isinstance(digest, str) and len(digest) == 64, "INT_BATTERY_INDEX_INVALID")
-        require(file_sha256(path) == digest, "INT_BATTERY_INDEX_INVALID")
+        require(json_sha256(path) == digest, "INT_BATTERY_INDEX_INVALID")
     ids = index.get("required_case_ids")
     require(isinstance(ids, list) and set(ids) == REQUIRED_CASE_IDS and len(ids) == len(set(ids)), "INT_BATTERY_INDEX_INVALID")
     require(index.get("live_parent_freshness") == "untested", "INT_BATTERY_INDEX_INVALID")
@@ -192,9 +189,9 @@ def run() -> dict:
         "battery": {
             "version": index["version"],
             "index": "batteries/index.json",
-            "index_sha256": file_sha256("batteries/index.json"),
+            "index_sha256": json_sha256("batteries/index.json"),
             "contract": index["contract"],
-            "contract_sha256": file_sha256(index["contract"]),
+            "contract_sha256": json_sha256(index["contract"]),
             "case_count": len(results),
         },
         "case_results": results,
@@ -217,9 +214,9 @@ def validate_report(report: dict) -> None:
     battery = report.get("battery", {})
     require(battery.get("case_count") == len(case_results), "INT_COMPATIBILITY_REPORT_INVALID")
     require(battery.get("index") == "batteries/index.json", "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("index_sha256") == file_sha256("batteries/index.json"), "INT_COMPATIBILITY_REPORT_INVALID")
+    require(battery.get("index_sha256") == json_sha256("batteries/index.json"), "INT_COMPATIBILITY_REPORT_INVALID")
     require(battery.get("contract") == "ai/composition-battery-contract.json", "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("contract_sha256") == file_sha256("ai/composition-battery-contract.json"), "INT_COMPATIBILITY_REPORT_INVALID")
+    require(battery.get("contract_sha256") == json_sha256("ai/composition-battery-contract.json"), "INT_COMPATIBILITY_REPORT_INVALID")
     actual_passed = sum(r.get("result") == "pass" for r in case_results if isinstance(r, dict))
     actual_failed = len(case_results) - actual_passed
     summary = report.get("summary", {})

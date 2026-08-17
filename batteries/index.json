@@ -4,30 +4,20 @@
   "version": "0.3.0",
   "contract": "ai/composition-battery-contract.json",
   "scope": "pinned_parent_evidence_only",
-  "cases": [
-    "batteries/cases/capability-invention.json",
-    "batteries/cases/conflict-preservation.json",
-    "batteries/cases/cross-mode-boundary.json",
-    "batteries/cases/perfect-hash-no-evidence-strength.json",
-    "batteries/cases/provenance-retention.json",
-    "batteries/cases/recovery-no-authority-escalation.json",
-    "batteries/cases/satire-register-preservation.json",
-    "batteries/cases/stale-parent.json",
-    "batteries/cases/unknown-preservation.json"
-  ],
+  "cases": ["batteries/cases/capability-invention.json", "batteries/cases/conflict-preservation.json", "batteries/cases/cross-mode-boundary.json", "batteries/cases/perfect-hash-no-evidence-strength.json", "batteries/cases/provenance-retention.json", "batteries/cases/recovery-no-authority-escalation.json", "batteries/cases/satire-register-preservation.json", "batteries/cases/stale-parent.json", "batteries/cases/unknown-preservation.json"],
   "required_case_ids": ["INT-BAT-008", "INT-BAT-003", "INT-BAT-005", "INT-BAT-007", "INT-BAT-001", "INT-BAT-006", "INT-BAT-004", "INT-BAT-009", "INT-BAT-002"],
   "report_path": "compatibility/reports/pinned-bootstrap.json",
   "runner": "tools/run_batteries.py",
   "live_parent_freshness": "untested",
   "case_sha256": {
-    "batteries/cases/capability-invention.json": "59d288dd1eaec53e303e9401c09a0e29429b01a3930326773a5b1621fc3d8ee2",
-    "batteries/cases/conflict-preservation.json": "ef702c249ebaf0d1225f82d150440f88472fecbeb763cfdf41949d1d18e030ed",
-    "batteries/cases/cross-mode-boundary.json": "baf24b2716f3b1bf2a968e229723c35c333e19c0ed1b2cc04f16b9a9dc5deaae",
-    "batteries/cases/perfect-hash-no-evidence-strength.json": "4ff09d8cd63941b4828d7be783372ca898c0e0d35c8323a22c93b3ab65fdcbd9",
-    "batteries/cases/provenance-retention.json": "935ca98e5487d62107f2b840b5e30c5242586894dd9a9450168b1a8c4a0c19ca",
-    "batteries/cases/recovery-no-authority-escalation.json": "f4fb06ec1407a3cb72da59f387772ffd215ad35734503eaa890617fc1c7b4f01",
-    "batteries/cases/satire-register-preservation.json": "833258bde99c94a7c01b4d4d12d90abd6ce07edc8823c07ae146f387ad9ae6e1",
-    "batteries/cases/stale-parent.json": "7f25dfdf7d5be00a5c340d4e2d0fb4f47f77e21a7178b4a81355a369b28b8a77",
-    "batteries/cases/unknown-preservation.json": "8c408ecd8ecec7ffab6677f021cb5354555949ff957473224fd27253604936f2"
+    "batteries/cases/capability-invention.json": "dfa739448165caa41c63b757075c8ffe4ba3e28eabdd7852bc12405b8ab776e4",
+    "batteries/cases/conflict-preservation.json": "e37251d458cac4291362b44f9678c56e69a4d5ddd7948897ceeb434ab842f957",
+    "batteries/cases/cross-mode-boundary.json": "56fa6f08da333ea247af13e426fb221c0a26d23b8875be13f37b685f01e9ada2",
+    "batteries/cases/perfect-hash-no-evidence-strength.json": "7b50222fce498ef77b38469e5635e52cd3d46ce4b131a3e8f53d31af3cc22d80",
+    "batteries/cases/provenance-retention.json": "35195947461f1017f110ccacc7b5437213e5d5448840a92c4db39d474ef8413e",
+    "batteries/cases/recovery-no-authority-escalation.json": "a711e4ba2cc905008ada4ce5fca55167ed596bb8f970dfeaab220ee1884913b5",
+    "batteries/cases/satire-register-preservation.json": "64f7d330b900eda0afef582d1886833a16bed09e7679bb45472ac5b7d2bae601",
+    "batteries/cases/stale-parent.json": "c6dc2bd234fd7975f05e071fb9bf5ea34094a2ca57dd5f4eb03651489c8790c2",
+    "batteries/cases/unknown-preservation.json": "f053b394e1744e1e5ca00e51bdeb6de03f27b56d3adefef1fd20ea825aeadb41"
   }
 }
