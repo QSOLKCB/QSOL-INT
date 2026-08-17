@@ -1,0 +1,39 @@
+{
+  "type": "qsol-int-composition-battery-contract",
+  "protocol": "QSOL-INT",
+  "version": "0.3.0",
+  "status": "implemented",
+  "scope": "pinned_parent_evidence_only",
+  "core_invariants": [
+    "INTEGRATION_MUST_NOT_INCREASE_SEMANTIC_AUTHORITY",
+    "PERFECT_PRESERVATION_MUST_NOT_INCREASE_EPISTEMIC_AUTHORITY",
+    "AUTHORED_RECEIVER != SOURCE_EVIDENCE",
+    "UNAVAILABLE != CONTRADICTED"
+  ],
+  "compatibility_states": ["compatible", "incompatible", "untested", "unknown"],
+  "case_result_states": ["pass", "fail"],
+  "live_parent_freshness": "untested_until_pr2",
+  "rules": [
+    "all_case_inputs_are_synthetic_integration_fixtures",
+    "passing_a_battery_is_derived_compatibility_evidence_not_parent_truth",
+    "compatible_is_scoped_to_exact_pinned_parent_evidence",
+    "live_parent_compatibility_must_not_be_inferred_without_drift_check",
+    "hash_success_must_not_strengthen_epistemic_state_claim_maturity_or_authorship",
+    "unknown_and_conflict_must_survive_recovery_unless_parent_evidence_changes_them",
+    "cross_mode_inference_requires_declared_bridge",
+    "requested_ark_capabilities_must_exist_in_the_pinned_parent_registry",
+    "reports_must_bind_exact_parent_commits_and_contract_blob_identities",
+    "version_adjacency_never_implies_compatibility"
+  ],
+  "failure_codes": [
+    "INT_BATTERY_INDEX_INVALID",
+    "INT_BATTERY_CASE_INVALID",
+    "INT_BATTERY_EXPECTATION_FAILED",
+    "INT_COMPATIBILITY_REPORT_INVALID",
+    "INT_CAPABILITY_INVENTION",
+    "INT_AUTHORITY_ESCALATION",
+    "INT_PROVENANCE_LOSS",
+    "INT_CROSS_MODE_BRIDGE_REQUIRED",
+    "INT_PARENT_FRESHNESS_UNTESTED"
+  ]
+}

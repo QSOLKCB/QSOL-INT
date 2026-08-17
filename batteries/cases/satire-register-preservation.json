@@ -1,0 +1,13 @@
+{
+  "id": "INT-BAT-004",
+  "battery": "satire_register_preservation",
+  "rule": "preserve_paths",
+  "description": "A satirical register must remain satirical and must not become factual authority through deterministic recovery.",
+  "synthetic": true,
+  "fixture": {
+    "before": {"claim": {"epistemic_state": "retrieved", "claim_maturity": "SUPPORTED", "register": "SATIRICAL", "scenario": "ACTUAL"}},
+    "after": {"claim": {"epistemic_state": "retrieved", "claim_maturity": "SUPPORTED", "register": "SATIRICAL", "scenario": "ACTUAL"}},
+    "paths": ["claim.epistemic_state", "claim.claim_maturity", "claim.register", "claim.scenario"]
+  },
+  "expected": {"result": "pass"}
+}

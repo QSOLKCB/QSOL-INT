@@ -1,0 +1,33 @@
+{
+  "type": "qsol-int-battery-index",
+  "protocol": "QSOL-INT",
+  "version": "0.3.0",
+  "contract": "ai/composition-battery-contract.json",
+  "scope": "pinned_parent_evidence_only",
+  "cases": [
+    "batteries/cases/capability-invention.json",
+    "batteries/cases/conflict-preservation.json",
+    "batteries/cases/cross-mode-boundary.json",
+    "batteries/cases/perfect-hash-no-evidence-strength.json",
+    "batteries/cases/provenance-retention.json",
+    "batteries/cases/recovery-no-authority-escalation.json",
+    "batteries/cases/satire-register-preservation.json",
+    "batteries/cases/stale-parent.json",
+    "batteries/cases/unknown-preservation.json"
+  ],
+  "required_case_ids": ["INT-BAT-008", "INT-BAT-003", "INT-BAT-005", "INT-BAT-007", "INT-BAT-001", "INT-BAT-006", "INT-BAT-004", "INT-BAT-009", "INT-BAT-002"],
+  "report_path": "compatibility/reports/pinned-bootstrap.json",
+  "runner": "tools/run_batteries.py",
+  "live_parent_freshness": "untested",
+  "case_sha256": {
+    "batteries/cases/capability-invention.json": "59d288dd1eaec53e303e9401c09a0e29429b01a3930326773a5b1621fc3d8ee2",
+    "batteries/cases/conflict-preservation.json": "ef702c249ebaf0d1225f82d150440f88472fecbeb763cfdf41949d1d18e030ed",
+    "batteries/cases/cross-mode-boundary.json": "baf24b2716f3b1bf2a968e229723c35c333e19c0ed1b2cc04f16b9a9dc5deaae",
+    "batteries/cases/perfect-hash-no-evidence-strength.json": "4ff09d8cd63941b4828d7be783372ca898c0e0d35c8323a22c93b3ab65fdcbd9",
+    "batteries/cases/provenance-retention.json": "935ca98e5487d62107f2b840b5e30c5242586894dd9a9450168b1a8c4a0c19ca",
+    "batteries/cases/recovery-no-authority-escalation.json": "f4fb06ec1407a3cb72da59f387772ffd215ad35734503eaa890617fc1c7b4f01",
+    "batteries/cases/satire-register-preservation.json": "833258bde99c94a7c01b4d4d12d90abd6ce07edc8823c07ae146f387ad9ae6e1",
+    "batteries/cases/stale-parent.json": "7f25dfdf7d5be00a5c340d4e2d0fb4f47f77e21a7178b4a81355a369b28b8a77",
+    "batteries/cases/unknown-preservation.json": "8c408ecd8ecec7ffab6677f021cb5354555949ff957473224fd27253604936f2"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "INT-BAT-002",
+  "battery": "unknown_preservation",
+  "rule": "preserve_paths",
+  "description": "Recovery must not convert unknown into false, known, or inferred.",
+  "synthetic": true,
+  "fixture": {
+    "before": {"claim": {"epistemic_state": "unknown", "claim_maturity": "UNKNOWN"}},
+    "after": {"claim": {"epistemic_state": "unknown", "claim_maturity": "UNKNOWN"}},
+    "paths": ["claim.epistemic_state", "claim.claim_maturity"]
+  },
+  "expected": {"result": "pass"}
+}
