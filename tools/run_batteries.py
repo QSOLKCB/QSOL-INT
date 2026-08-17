@@ -23,6 +23,46 @@ EXPECTED_CASE_PATHS = {
     "batteries/cases/stale-parent.json",
     "batteries/cases/unknown-preservation.json",
 }
+EXPECTED_ARK_CAPABILITIES = [
+    "inspect_canary", "carry_receipt", "verify_sha256", "verify_canary",
+    "standalone_hash_implementation", "interactive_offline",
+    "validate_archaeology_contracts", "validate_provenance_guards", "select_mrs",
+    "model_reconstruction", "epistemic_classification", "recovery_scoring",
+]
+HASH_AUTHORITY_DIMENSIONS = (
+    "epistemic_state", "claim_maturity", "authorship", "content_truth",
+    "original_source", "digital_signature", "trustworthiness",
+)
+EXPECTED_CONTRACT_INVARIANTS = {
+    "INTEGRATION_MUST_NOT_INCREASE_SEMANTIC_AUTHORITY",
+    "PERFECT_PRESERVATION_MUST_NOT_INCREASE_EPISTEMIC_AUTHORITY",
+    "AUTHORED_RECEIVER != SOURCE_EVIDENCE",
+    "UNAVAILABLE != CONTRADICTED",
+}
+EXPECTED_CONTRACT_RULES = {
+    "all_case_inputs_are_synthetic_integration_fixtures",
+    "passing_a_battery_is_derived_compatibility_evidence_not_parent_truth",
+    "compatible_is_scoped_to_exact_pinned_parent_evidence",
+    "live_parent_compatibility_must_not_be_inferred_without_drift_check",
+    "hash_success_must_not_strengthen_epistemic_state_claim_maturity_authorship_source_signature_truth_or_trust",
+    "unknown_and_conflict_must_survive_recovery_unless_parent_evidence_changes_them",
+    "cross_mode_inference_requires_declared_bridge",
+    "requested_ark_capabilities_must_exist_in_the_pinned_parent_registry",
+    "reports_must_bind_exact_parent_commits_and_contract_blob_identities",
+    "version_adjacency_never_implies_compatibility",
+}
+EXPECTED_FAILURE_CODES = {
+    "INT_BATTERY_INDEX_INVALID",
+    "INT_BATTERY_CASE_INVALID",
+    "INT_BATTERY_EXPECTATION_FAILED",
+    "INT_COMPOSITION_CONTRACT_INVALID",
+    "INT_COMPATIBILITY_REPORT_INVALID",
+    "INT_CAPABILITY_INVENTION",
+    "INT_AUTHORITY_ESCALATION",
+    "INT_PROVENANCE_LOSS",
+    "INT_CROSS_MODE_BRIDGE_REQUIRED",
+    "INT_PARENT_FRESHNESS_UNTESTED",
+}
 
 def load(path: str | Path) -> dict:
     p = Path(path)
@@ -80,7 +120,46 @@ def validate_index(index: dict) -> None:
         require(json_sha256(path) == digest, "INT_BATTERY_INDEX_INVALID")
     ids = index.get("required_case_ids")
     require(isinstance(ids, list) and set(ids) == REQUIRED_CASE_IDS and len(ids) == len(set(ids)), "INT_BATTERY_INDEX_INVALID")
+    require(index.get("contract") == "ai/composition-battery-contract.json", "INT_BATTERY_INDEX_INVALID")
     require(index.get("live_parent_freshness") == "untested", "INT_BATTERY_INDEX_INVALID")
+
+def validate_composition_contract(contract: dict) -> None:
+    require(isinstance(contract, dict), "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("type") == "qsol-int-composition-battery-contract", "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("protocol") == "QSOL-INT", "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("version") == "0.3.0", "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("status") == "implemented", "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("scope") == "pinned_parent_evidence_only", "INT_COMPOSITION_CONTRACT_INVALID")
+    invariants = contract.get("core_invariants")
+    require(isinstance(invariants, list) and len(invariants) == len(set(invariants)), "INT_COMPOSITION_CONTRACT_INVALID")
+    require(set(invariants) == EXPECTED_CONTRACT_INVARIANTS, "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("compatibility_states") == ["compatible", "incompatible", "untested", "unknown"], "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("case_result_states") == ["pass", "fail"], "INT_COMPOSITION_CONTRACT_INVALID")
+    require(contract.get("live_parent_freshness") == "untested_until_pr2", "INT_COMPOSITION_CONTRACT_INVALID")
+    rules = contract.get("rules")
+    require(isinstance(rules, list) and len(rules) == len(set(rules)), "INT_COMPOSITION_CONTRACT_INVALID")
+    require(set(rules) == EXPECTED_CONTRACT_RULES, "INT_COMPOSITION_CONTRACT_INVALID")
+    codes = contract.get("failure_codes")
+    require(isinstance(codes, list) and len(codes) == len(set(codes)), "INT_COMPOSITION_CONTRACT_INVALID")
+    require(set(codes) == EXPECTED_FAILURE_CODES, "INT_COMPOSITION_CONTRACT_INVALID")
+
+def _load_parent_validator():
+    validator_path = ROOT / "tools" / "validate_int.py"
+    require(validator_path.is_file(), "INT_BATTERY_INDEX_INVALID")
+    spec = importlib.util.spec_from_file_location("qsol_int_validate", validator_path)
+    require(spec is not None and spec.loader is not None, "INT_BATTERY_INDEX_INVALID")
+    validator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(validator)
+    return validator
+
+def validate_battery_parents(parents: dict) -> None:
+    validator = _load_parent_validator()
+    validator.validate_parent_contracts(parents)
+    ark = parents.get("parents", {}).get("ark", {})
+    require(
+        ark.get("observed_declared_capabilities") == EXPECTED_ARK_CAPABILITIES,
+        "INT_CAPABILITY_REDEFINITION",
+    )
 
 def _case_base(case: dict) -> None:
     require(isinstance(case, dict), "INT_BATTERY_CASE_INVALID")
@@ -126,7 +205,9 @@ def evaluate_case(case: dict, parents: dict) -> dict:
         before = fixture.get("before", {}).get("claim", {})
         after = fixture.get("after", {}).get("claim", {})
         require(fixture.get("integrity", {}).get("sha256_match") is True, "INT_BATTERY_CASE_INVALID")
-        ok = all(before.get(k) == after.get(k) for k in ("epistemic_state", "claim_maturity", "authorship"))
+        require(set(before) == set(HASH_AUTHORITY_DIMENSIONS), "INT_BATTERY_CASE_INVALID")
+        require(set(after) == set(HASH_AUTHORITY_DIMENSIONS), "INT_BATTERY_CASE_INVALID")
+        ok = all(before[k] == after[k] for k in HASH_AUTHORITY_DIMENSIONS)
         if not ok:
             observed = {"decision": "reject", "failure_code": "INT_AUTHORITY_ESCALATION"}
 
@@ -156,15 +237,10 @@ def evaluate_case(case: dict, parents: dict) -> dict:
 def run() -> dict:
     index = load("batteries/index.json")
     validate_index(index)
+    contract = load(index["contract"])
+    validate_composition_contract(contract)
     parents = load("ai/parent-contracts.json")
-
-    validator_path = ROOT / "tools" / "validate_int.py"
-    require(validator_path.is_file(), "INT_BATTERY_INDEX_INVALID")
-    spec = importlib.util.spec_from_file_location("qsol_int_validate", validator_path)
-    require(spec is not None and spec.loader is not None, "INT_BATTERY_INDEX_INVALID")
-    validator = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(validator)
-    validator.validate_parent_contracts(parents)
+    validate_battery_parents(parents)
 
     results = []
     seen = set()
@@ -201,33 +277,17 @@ def run() -> dict:
     return report
 
 def validate_report(report: dict) -> None:
+    require(isinstance(report, dict), "INT_COMPATIBILITY_REPORT_INVALID")
     require(report.get("type") == "qsol-int-compatibility-report", "INT_COMPATIBILITY_REPORT_INVALID")
     require(report.get("protocol") == "QSOL-INT", "INT_COMPATIBILITY_REPORT_INVALID")
     require(report.get("scope") == "pinned_parent_evidence_only", "INT_COMPATIBILITY_REPORT_INVALID")
     require(report.get("compatibility") in ALLOWED_COMPATIBILITY, "INT_COMPATIBILITY_REPORT_INVALID")
-    require(report.get("live_parent_freshness") in ALLOWED_COMPATIBILITY, "INT_COMPATIBILITY_REPORT_INVALID")
     require(report.get("live_parent_freshness") == "untested", "INT_COMPATIBILITY_REPORT_INVALID")
-    expected_parents = parent_identity(load("ai/parent-contracts.json"))
-    require(report.get("parents") == expected_parents, "INT_COMPATIBILITY_REPORT_INVALID")
-    case_results = report.get("case_results")
-    require(isinstance(case_results, list) and {r.get("id") for r in case_results if isinstance(r, dict)} == REQUIRED_CASE_IDS, "INT_COMPATIBILITY_REPORT_INVALID")
-    battery = report.get("battery", {})
-    require(battery.get("case_count") == len(case_results), "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("index") == "batteries/index.json", "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("index_sha256") == json_sha256("batteries/index.json"), "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("contract") == "ai/composition-battery-contract.json", "INT_COMPATIBILITY_REPORT_INVALID")
-    require(battery.get("contract_sha256") == json_sha256("ai/composition-battery-contract.json"), "INT_COMPATIBILITY_REPORT_INVALID")
-    actual_passed = sum(r.get("result") == "pass" for r in case_results if isinstance(r, dict))
-    actual_failed = len(case_results) - actual_passed
-    summary = report.get("summary", {})
-    require(summary.get("passed") == actual_passed and summary.get("failed") == actual_failed, "INT_COMPATIBILITY_REPORT_INVALID")
-    expected_compatibility = "compatible" if actual_failed == 0 else "incompatible"
-    require(report.get("compatibility") == expected_compatibility, "INT_COMPATIBILITY_REPORT_INVALID")
-    require(summary.get("requires_live_drift_check_for_current_parent_claim") is True, "INT_COMPATIBILITY_REPORT_INVALID")
-    fingerprint = report.get("fingerprint_sha256", "")
-    unsigned = dict(report)
-    unsigned.pop("fingerprint_sha256", None)
-    require(fingerprint == hashlib.sha256(canonical_bytes(unsigned)).hexdigest(), "INT_COMPATIBILITY_REPORT_INVALID")
+
+    # Reports are derived evidence. Never trust their caller-supplied case results,
+    # summaries, parent identity, hashes, or compatibility label: regenerate all of it.
+    expected = run()
+    require(report == expected, "INT_COMPATIBILITY_REPORT_INVALID")
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run deterministic QSOL-INT cross-repo composition batteries.")

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 import copy
+import hashlib
 import importlib.util
 import unittest
 from pathlib import Path
@@ -62,7 +63,6 @@ class CompositionBatteryTests(unittest.TestCase):
         bad["parents"]["ark"]["pinned_commit"] = "0" * 40
         unsigned = dict(bad)
         unsigned.pop("fingerprint_sha256", None)
-        import hashlib
         bad["fingerprint_sha256"] = hashlib.sha256(mod.canonical_bytes(unsigned)).hexdigest()
         with self.assertRaisesRegex(ValueError, "INT_COMPATIBILITY_REPORT_INVALID"):
             mod.validate_report(bad)
@@ -72,6 +72,49 @@ class CompositionBatteryTests(unittest.TestCase):
         report["compatibility"] = "unknown"
         with self.assertRaisesRegex(ValueError, "INT_COMPATIBILITY_REPORT_INVALID"):
             mod.validate_report(report)
+
+    def test_report_case_results_are_recomputed(self):
+        report = mod.run()
+        bad = copy.deepcopy(report)
+        bad["case_results"][0] = {
+            "id": "INT-BAT-008",
+            "battery": "totally_legit_paperwork",
+            "result": "pass",
+            "observed": {"decision": "allow", "failure_code": None},
+        }
+        unsigned = dict(bad)
+        unsigned.pop("fingerprint_sha256", None)
+        bad["fingerprint_sha256"] = hashlib.sha256(mod.canonical_bytes(unsigned)).hexdigest()
+        with self.assertRaisesRegex(ValueError, "INT_COMPATIBILITY_REPORT_INVALID"):
+            mod.validate_report(bad)
+
+    def test_empty_composition_contract_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, "INT_COMPOSITION_CONTRACT_INVALID"):
+            mod.validate_composition_contract({})
+
+    def test_ark_capability_registry_is_exactly_bound(self):
+        parents = mod.load("ai/parent-contracts.json")
+        bad = copy.deepcopy(parents)
+        bad["parents"]["ark"]["observed_declared_capabilities"].append("time_travel")
+        with self.assertRaisesRegex(ValueError, "INT_CAPABILITY_REDEFINITION"):
+            mod.validate_battery_parents(bad)
+
+    def test_hash_battery_checks_every_authority_dimension(self):
+        parents = mod.load("ai/parent-contracts.json")
+        case = mod.load("batteries/cases/perfect-hash-no-evidence-strength.json")
+        bad = copy.deepcopy(case)
+        bad["fixture"]["after"]["claim"]["content_truth"] = "verified"
+        result = mod.evaluate_case(bad, parents)
+        self.assertEqual(result["result"], "fail")
+        self.assertEqual(result["observed"]["failure_code"], "INT_AUTHORITY_ESCALATION")
+
+    def test_hash_battery_rejects_undeclared_authority_fields(self):
+        parents = mod.load("ai/parent-contracts.json")
+        case = mod.load("batteries/cases/perfect-hash-no-evidence-strength.json")
+        bad = copy.deepcopy(case)
+        bad["fixture"]["after"]["claim"]["divine_truth"] = True
+        with self.assertRaisesRegex(ValueError, "INT_BATTERY_CASE_INVALID"):
+            mod.evaluate_case(bad, parents)
 
 if __name__ == "__main__":
     unittest.main()

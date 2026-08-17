@@ -13,7 +13,7 @@
     "batteries/cases/capability-invention.json": "dfa739448165caa41c63b757075c8ffe4ba3e28eabdd7852bc12405b8ab776e4",
     "batteries/cases/conflict-preservation.json": "e37251d458cac4291362b44f9678c56e69a4d5ddd7948897ceeb434ab842f957",
     "batteries/cases/cross-mode-boundary.json": "56fa6f08da333ea247af13e426fb221c0a26d23b8875be13f37b685f01e9ada2",
-    "batteries/cases/perfect-hash-no-evidence-strength.json": "7b50222fce498ef77b38469e5635e52cd3d46ce4b131a3e8f53d31af3cc22d80",
+    "batteries/cases/perfect-hash-no-evidence-strength.json": "ecfc34662b54cb1da8eb9628fb651f4098bc02f4012189093a63384aa680d515",
     "batteries/cases/provenance-retention.json": "35195947461f1017f110ccacc7b5437213e5d5448840a92c4db39d474ef8413e",
     "batteries/cases/recovery-no-authority-escalation.json": "a711e4ba2cc905008ada4ce5fca55167ed596bb8f970dfeaab220ee1884913b5",
     "batteries/cases/satire-register-preservation.json": "64f7d330b900eda0afef582d1886833a16bed09e7679bb45472ac5b7d2bae601",
