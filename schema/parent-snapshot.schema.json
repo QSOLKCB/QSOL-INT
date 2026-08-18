@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/QSOLKCB/QSOL-INT/schema/parent-snapshot.schema.json",
+  "title": "QSOL-INT Parent Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "type", "protocol", "snapshot_version", "semantic_identity", "generation", "authority", "receipt_semantics"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "type": {"const": "qsol-int-parent-snapshot"},
+    "protocol": {"const": "QSOL-INT/PARENT-SNAPSHOT/1"},
+    "snapshot_version": {"type": "string"},
+    "semantic_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "id", "payload"],
+      "properties": {
+        "algorithm": {"const": "sha256-canonical-json-v1"},
+        "id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["parents"],
+          "properties": {
+            "parents": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "repository", "source_ref", "source_commit", "artifacts"],
+                "properties": {
+                  "name": {"type": "string", "minLength": 1},
+                  "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+                  "source_ref": {"type": "string", "minLength": 1},
+                  "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+                  "artifacts": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["semantic_role", "path", "git_blob_sha1", "content_sha256", "snapshot_path"],
+                      "properties": {
+                        "semantic_role": {"type": "string", "minLength": 1},
+                        "path": {"type": "string", "minLength": 1},
+                        "git_blob_sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+                        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                        "snapshot_path": {"type": "string", "minLength": 1}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "required": ["captured_from", "generated_date", "timestamp_part_of_semantic_identity"],
+      "properties": {
+        "captured_from": {"type": "string"},
+        "generated_date": {"type": "string"},
+        "timestamp_part_of_semantic_identity": {"const": false}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": ["live_parent_state_precedence", "baseline_refresh_is_automatic", "missing_live_evidence_is_no_drift"],
+      "properties": {
+        "live_parent_state_precedence": {"const": true},
+        "baseline_refresh_is_automatic": {"const": false},
+        "missing_live_evidence_is_no_drift": {"const": false}
+      }
+    },
+    "receipt_semantics": {"type": "object"}
+  }
+}

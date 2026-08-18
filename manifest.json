@@ -2,15 +2,15 @@
   "$schema": "./schema/int-manifest.schema.json",
   "type": "qsol-int-manifest",
   "protocol": "QSOL-INT",
-  "schema_version": "0.3.0",
-  "status": "composition_batteries",
+  "schema_version": "0.4.0",
+  "status": "parent_snapshots_and_drift_detection",
   "repository": "https://github.com/QSOLKCB/QSOL-INT",
   "public_repository": true,
   "maintainer": {"name": "Trent Slade", "github": "EmergentMonk", "affiliation": "QSOL-IMC", "role": "founder and maintainer"},
   "purpose": "compose QSOL-SUBSTRATE epistemic and provenance semantics with QSOL-ARK recovery semantics without redefining either parent",
   "entrypoints": {"human": "README.md", "ai": "README4AI.md", "agent": "AGENTS.md", "bootstrap": "ai/bootstrap.json", "parent_contracts": "ai/parent-contracts.json", "integration_contract": "ai/integration-contract.json", "integrity_semantics": "ai/integrity-semantics.json", "epistemic_recovery_policy": "ai/epistemic-recovery-policy.json", "reference_methodologies": "ai/reference-methodologies.json", "roadmap": "ROADMAP.md", "validator": "tools/validate_int.py"},
   "authority_order": ["live_parent_repository_state", "pinned_parent_evidence", "int_canonical_integration_contract", "source_design_input", "derived_artifact"],
-  "implemented_capabilities": ["validate_local_integration_contracts", "validate_founding_qbraid_specimen", "enforce_integrity_authenticity_separation", "enforce_parent_semantic_ownership", "validate_reference_methodology_boundaries", "run_cross_repo_composition_batteries", "emit_pinned_parent_compatibility_reports", "enforce_scope_qualified_compatibility", "enforce_live_freshness_untested_without_drift_evidence", "validate_compatibility_report_fingerprints"],
+  "implemented_capabilities": ["validate_local_integration_contracts", "validate_founding_qbraid_specimen", "enforce_integrity_authenticity_separation", "enforce_parent_semantic_ownership", "validate_reference_methodology_boundaries", "run_cross_repo_composition_batteries", "emit_pinned_parent_compatibility_reports", "enforce_scope_qualified_compatibility", "enforce_live_freshness_untested_without_drift_evidence", "validate_compatibility_report_fingerprints", "validate_parent_snapshot_receipts", "check_live_parent_drift", "emit_canonical_drift_reports", "classify_parent_drift_fail_closed"],
   "network_required_for_local_validation": false,
-  "live_parent_drift_detection": "planned"
+  "live_parent_drift_detection": "implemented"
 }

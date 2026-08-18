@@ -1,0 +1,16 @@
+{
+  "type": "qsol-ark-minimum-recoverable-substrate",
+  "protocol": "QSOL-ARK",
+  "version": "0.2.0",
+  "tier_registry": "ai/recovery-tiers.json",
+  "definition": "the lowest-rank implemented tier whose explicitly declared capabilities include every requested capability",
+  "selection": ["load the tier registry","discard tiers where implemented is false","do not infer or inherit undeclared capabilities","keep tiers whose capabilities are a superset of requested capabilities","select the remaining tier with the lowest numeric rank","fail closed when no implemented tier satisfies the request"],
+  "failure": "ARK_MRS_UNAVAILABLE",
+  "examples": [
+    {"requires":["verify_sha256"],"result":"T1"},
+    {"requires":["standalone_hash_implementation"],"result":"T2"},
+    {"requires":["interactive_offline"],"result":"T3"},
+    {"requires":["validate_archaeology_contracts"],"result":"T4"},
+    {"requires":["model_reconstruction"],"result":null}
+  ]
+}

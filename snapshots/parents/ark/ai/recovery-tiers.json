@@ -1,0 +1,14 @@
+{
+  "type": "qsol-ark-recovery-tiers",
+  "protocol": "QSOL-ARK",
+  "version": "0.2.0",
+  "ordering_rule": "lower rank means fewer environmental assumptions; capabilities are never inherited implicitly",
+  "tiers": [
+    {"id":"T0","rank":0,"name":"stone-tablet","implemented":true,"environment":["plain text or printable bytes"],"entrypoints":["capsules/minimal/ARK-CANARY.txt","capsules/minimal/SHA256SUMS"],"capabilities":["inspect_canary","carry_receipt"]},
+    {"id":"T1","rank":1,"name":"posix-cockroach","implemented":true,"environment":["POSIX-compatible sh","one SHA-256 provider: sha256sum, shasum, or openssl"],"entrypoints":["retro/posix/ark-verify.sh"],"capabilities":["inspect_canary","carry_receipt","verify_sha256","verify_canary"]},
+    {"id":"T2","rank":2,"name":"c99-standalone","implemented":true,"environment":["C99 compiler","ISO C standard library"],"entrypoints":["retro/c/ark-verify.c"],"capabilities":["inspect_canary","carry_receipt","verify_sha256","verify_canary","standalone_hash_implementation"]},
+    {"id":"T3","rank":3,"name":"offline-browser","implemented":true,"environment":["static HTML","JavaScript","Web Crypto API","no network required"],"entrypoints":["retro/browser/ark-verify.html"],"capabilities":["inspect_canary","carry_receipt","verify_sha256","verify_canary","interactive_offline"]},
+    {"id":"T4","rank":4,"name":"python-reference","implemented":true,"environment":["CPython 3.11+","standard library only"],"entrypoints":["tools/archaeology.py"],"capabilities":["inspect_canary","carry_receipt","verify_sha256","verify_canary","validate_archaeology_contracts","validate_provenance_guards","select_mrs"]},
+    {"id":"T5","rank":5,"name":"ai-reconstruction","implemented":false,"environment":["model adapter","staged ARK context"],"entrypoints":["./ark awaken <model>"],"capabilities":["model_reconstruction","epistemic_classification","recovery_scoring"]}
+  ]
+}

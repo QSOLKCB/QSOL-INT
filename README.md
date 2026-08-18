@@ -30,6 +30,22 @@ PERFECT_PRESERVATION_MUST_NOT_INCREASE_EPISTEMIC_AUTHORITY
 
 QSOL-INT separates digest match, integrity, provenance, authorship, authentication/signature, and content truth. SHA-256 alone does not prove authorship, original source, signature, trustworthiness, or truth.
 
+## Parent snapshots and live drift
+
+INT keeps byte-exact copies of only the SUBSTRATE and ARK machine contracts it currently depends on. Every snapshot artifact records parent repository, source commit, contract path, Git blob identity, and content SHA-256. Aggregate semantic snapshot identity excludes generation timestamps.
+
+The snapshot is last-known evidence, not superior authority. Live parent state wins for parent-owned semantics, and drift never refreshes the baseline automatically.
+
+```bash
+./int check-drift
+./int check-drift --json
+./int explain-drift
+```
+
+Drift classes are `NO_DRIFT`, `CONTENT_DRIFT`, `SCHEMA_DRIFT`, `SEMANTIC_DRIFT`, `CAPABILITY_DRIFT`, `AUTHORITY_DRIFT`, `BREAKING_DRIFT`, and `SOURCE_UNAVAILABLE`. A changed byte is not automatically breaking semantic drift. Unknown impact produces review-required unresolved classification rather than optimistic compatibility.
+
+See `docs/DRIFT.md` for outcome codes and classification details.
+
 ## Parent pins at bootstrap
 
 - QSOL-SUBSTRATE `main`: `60e8cfeefa859df375f9f4d2fdb735edb1249db8`
@@ -50,15 +66,14 @@ python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bo
 
 The deterministic battery suite covers provenance retention; unknown preservation; conflict preservation; satire/register preservation; cross-mode bridge discipline; recovery without authority escalation; perfect-hash without evidence escalation; ARK capability invention; and stale-parent/freshness discipline.
 
-A successful PR #3 report is intentionally scoped:
+The committed PR #3 compatibility report remains intentionally scoped:
 
 ```text
 pinned compatibility: compatible
-live parent freshness: untested
 current-parent compatibility: NOT CLAIMED
 ```
 
-PR #2 remains responsible for live drift detection. PR #3 does not counterfeit that evidence.
+PR #2 can now establish whether live parent contracts differ. Drift detection does not automatically establish compatibility with those changed contracts.
 
 The committed compatibility report is a **derived integration artifact**, fingerprinted over canonical JSON and bound to exact parent commits and Git blob identities.
 
@@ -74,11 +89,12 @@ Its preserved discrepancies remain useful integration test material rather than 
 
 ```sh
 python3 tools/validate_int.py
+python3 tools/drift.py validate-snapshot --json
 python3 tools/run_batteries.py
 python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bootstrap.json
 python3 -m unittest discover -s tests -v
 ```
 
-Local validation is standard-library only and requires no network access.
+Local validation is standard-library only and requires no network access. Live drift checks use public GitHub parent state and fail closed when that evidence is unavailable.
 
-See `README4AI.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/COMPOSITION-BATTERIES.md`, `docs/QBRAID-REVIEW.md`, `docs/SUBSTRATISM-REFERENCE.md`, and `ROADMAP.md`.
+See `README4AI.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/COMPOSITION-BATTERIES.md`, `docs/DRIFT.md`, `docs/QBRAID-REVIEW.md`, `docs/SUBSTRATISM-REFERENCE.md`, and `ROADMAP.md`.
