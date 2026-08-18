@@ -1,0 +1,39 @@
+{
+  "$schema": "../../schema/parent-snapshot.schema.json",
+  "type": "qsol-int-parent-snapshot",
+  "protocol": "QSOL-INT/PARENT-SNAPSHOT/1",
+  "snapshot_version": "1.0.0",
+  "semantic_identity": {
+    "algorithm": "sha256-canonical-json-v1",
+    "id": "sha256:dabca2e505d7c4097fbc94b4cb0d1bbd3363005eba6fb83ed1c11ba2f937aae7",
+    "payload": {
+      "parents": [
+        {
+          "name": "substrate",
+          "repository": "QSOLKCB/QSOL-SUBSTRATE",
+          "source_ref": "main",
+          "source_commit": "60e8cfeefa859df375f9f4d2fdb735edb1249db8",
+          "artifacts": [
+            {"semantic_role": "manifest", "path": "ai/manifest.json", "git_blob_sha1": "bdc57ae303c2ce5b8498e3867d15d1804a59ba30", "content_sha256": "58ecbdecf837d34b7a584a76efb0e7e36381b02e5a01bc28e8729b0cf9c68721", "snapshot_path": "snapshots/parents/substrate/ai/manifest.json"},
+            {"semantic_role": "epistemic_contract", "path": "ai/epistemic-contract.json", "git_blob_sha1": "6abd254957843f2a0d42066423a5689099f85b6c", "content_sha256": "29ae4ff94bda08057b10536bc5f97e3602d479277771cdf028f71e572744e9bc", "snapshot_path": "snapshots/parents/substrate/ai/epistemic-contract.json"},
+            {"semantic_role": "mode_contract", "path": "ai/mode-contract.json", "git_blob_sha1": "9c830b095f59bbd948bf9ea5a8b35127121a7d99", "content_sha256": "d726190adaec0efbfa68e61b69f4d2de4bd8a32d5b892447d1d23bfec2bdb433", "snapshot_path": "snapshots/parents/substrate/ai/mode-contract.json"}
+          ]
+        },
+        {
+          "name": "ark",
+          "repository": "QSOLKCB/QSOL-ARK",
+          "source_ref": "main",
+          "source_commit": "f2bbf149abb3f8ccbfed158176873d813b66b546",
+          "artifacts": [
+            {"semantic_role": "manifest", "path": "manifest.json", "git_blob_sha1": "9016cf8e6641d48e639fb69cd5ad7f98a02840b7", "content_sha256": "8d9d968f5e8cef429ef2c321359092e6c33d71669c5efaab8f50b3099d142c2b", "snapshot_path": "snapshots/parents/ark/manifest.json"},
+            {"semantic_role": "capability_registry", "path": "ai/recovery-tiers.json", "git_blob_sha1": "dc7ea8e37772e677ee09f0e3a1447c2700a74789", "content_sha256": "195a6ee1274bfabe524e8befc5d46df0451bcac7108a47945a7c4122116f25d3", "snapshot_path": "snapshots/parents/ark/ai/recovery-tiers.json"},
+            {"semantic_role": "mrs_contract", "path": "ai/minimum-recoverable-substrate.json", "git_blob_sha1": "1a4860543488357321e1aad24ce36266769c5f39", "content_sha256": "d587f937a18cee46d8f793aecc5e6cda84522d238b9597eceff17bee85b44f75", "snapshot_path": "snapshots/parents/ark/ai/minimum-recoverable-substrate.json"}
+          ]
+        }
+      ]
+    }
+  },
+  "generation": {"captured_from": "ai/parent-contracts.json", "generated_date": "2026-08-19", "timestamp_part_of_semantic_identity": false},
+  "authority": {"live_parent_state_precedence": true, "baseline_refresh_is_automatic": false, "missing_live_evidence_is_no_drift": false},
+  "receipt_semantics": {"content_sha256": "byte_identity_for_snapshot_copy_only", "git_blob_sha1": "parent_git_object_identity_only", "digest_is_truth_or_authorship": false}
+}

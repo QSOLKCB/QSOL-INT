@@ -1,0 +1,24 @@
+name: parent-drift-contracts
+
+on:
+  push:
+    branches: [main, "agent/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  drift-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate parent snapshot receipts
+        run: python3 tools/drift.py validate-snapshot --json
+      - name: Run drift regression suite
+        run: python3 -m unittest discover -s tests -v
+      - name: Validate QSOL-INT bootstrap contracts
+        run: python3 tools/validate_int.py

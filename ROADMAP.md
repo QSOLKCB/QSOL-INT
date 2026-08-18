@@ -47,13 +47,13 @@ QSOL-INT
 
 ## PR #2 — Parent Snapshots and Drift Detection
 
-**Status: planned. PR #3 must not pretend this exists.**
+**Status: implemented on `agent/parent-snapshots-drift-detection`. Drift detection does not retroactively widen PR #3 compatibility scope.**
 
 ### Goal
 
 Make cross-repository drift deterministic, inspectable, machine-readable, and fail-closed.
 
-Planned commands:
+Implemented commands:
 
 ```bash
 ./int check-drift
@@ -67,11 +67,11 @@ Governing rule:
 
 ### Parent snapshots
 
-- [ ] Snapshot only the exact SUBSTRATE and ARK machine contracts INT depends on.
-- [ ] Record repository, source commit, path, Git blob identity, and content SHA-256.
-- [ ] Keep semantic identity separate from generation timestamps.
-- [ ] Treat live parent state as higher authority than stale snapshots.
-- [ ] Never silently refresh a baseline after drift.
+- [x] Snapshot only the exact SUBSTRATE and ARK machine contracts INT depends on.
+- [x] Record repository, source commit, path, Git blob identity, and content SHA-256.
+- [x] Keep semantic identity separate from generation timestamps.
+- [x] Treat live parent state as higher authority than stale snapshots.
+- [x] Never silently refresh a baseline after drift.
 
 ### Drift taxonomy
 
@@ -88,14 +88,14 @@ A changed byte is not automatically breaking semantic drift.
 
 ### Classification rules
 
-- [ ] Documentation-only change may be `CONTENT_DRIFT`.
-- [ ] Schema changes trigger `SCHEMA_DRIFT`.
-- [ ] Contract-meaning changes trigger `SEMANTIC_DRIFT`.
-- [ ] ARK capability/implementation changes trigger `CAPABILITY_DRIFT`.
-- [ ] Epistemic entitlement, provenance, boundary, or canonicality changes trigger `AUTHORITY_DRIFT`.
-- [ ] Unsafe composition triggers `BREAKING_DRIFT`.
-- [ ] Missing live evidence becomes `SOURCE_UNAVAILABLE`, never `NO_DRIFT`.
-- [ ] Unknown impact requires review rather than optimistic compatibility.
+- [x] Documentation-only change may be `CONTENT_DRIFT`.
+- [x] Schema changes trigger `SCHEMA_DRIFT`.
+- [x] Contract-meaning changes trigger `SEMANTIC_DRIFT`.
+- [x] ARK capability/implementation changes trigger `CAPABILITY_DRIFT`.
+- [x] Epistemic entitlement, provenance, boundary, or canonicality changes trigger `AUTHORITY_DRIFT`.
+- [x] Unsafe composition triggers `BREAKING_DRIFT`.
+- [x] Missing live evidence becomes `SOURCE_UNAVAILABLE`, never `NO_DRIFT`.
+- [x] Unknown impact requires review rather than optimistic compatibility.
 
 ### Typed outcomes
 
@@ -111,18 +111,18 @@ A changed byte is not automatically breaking semantic drift.
 
 ### Validation
 
-- [ ] Stdlib-only reference implementation where practical.
-- [ ] Canonical JSON drift reports.
-- [ ] SHA-256 snapshot receipts.
-- [ ] Regression-test every drift class.
-- [ ] Test unchanged, documentation, schema, capability, implementation, authority, missing-source, and malformed-snapshot cases.
-- [ ] CI fails closed on unresolved breaking drift.
+- [x] Stdlib-only reference implementation where practical.
+- [x] Canonical JSON drift reports.
+- [x] SHA-256 snapshot receipts.
+- [x] Regression-test every drift class.
+- [x] Test unchanged, documentation, schema, capability, implementation, authority, missing-source, and malformed-snapshot cases.
+- [x] CI fails closed on unresolved breaking drift.
 
 ---
 
 ## PR #3 — Cross-Repo Composition Batteries and Compatibility Reports
 
-**Status: implemented in this PR.**
+**Status: implemented. PR #2 now supplies drift evidence, but PR #3 compatibility remains pinned-evidence scoped.**
 
 ### Deterministic battery suite
 
@@ -156,7 +156,7 @@ A changed byte is not automatically breaking semantic drift.
 - [x] Distinguish `compatible`, `incompatible`, `untested`, and `unknown`.
 - [x] Never infer compatibility from adjacent versions.
 - [x] Scope PR #3 compatibility to `pinned_parent_evidence_only`.
-- [x] Explicitly mark `live_parent_freshness` as `untested` until PR #2 exists.
+- [x] Keep current-parent compatibility unclaimed until changed parent evidence is explicitly evaluated.
 
 Core invariant:
 
@@ -166,7 +166,6 @@ PR #3 result semantics:
 
 ```text
 pinned compatibility: compatible
-live parent freshness: untested
 current-parent compatibility: NOT CLAIMED
 ```
 
