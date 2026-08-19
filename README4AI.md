@@ -1,4 +1,4 @@
-# QSOL-INT — AI bootstrap
+# QSOL-INT AI bootstrap
 
 MACHINE-FIRST ENTRYPOINT.
 
@@ -19,10 +19,11 @@ MACHINE-FIRST ENTRYPOINT.
 6. `ai/integrity-semantics.json`
 7. `ai/epistemic-recovery-policy.json`
 8. `ai/reference-methodologies.json`
-9. `ai/composition-battery-contract.json` when evaluating compatibility
-10. `batteries/index.json` when running PR #3 composition tests
-11. task-relevant schemas/specimens
-12. human prose only as explanation
+9. `ai/composition-battery-contract.json` and `batteries/index.json` when evaluating pinned compatibility
+10. `ai/consumer-evaluation-contract.json` and `evaluations/index.json` when scoring a consumer run
+11. `ai/adapter-contract.json` and `adapters/index.json` when translating transport
+12. task-relevant schemas/specimens
+13. human prose only as explanation
 
 ## Hard rules
 
@@ -42,11 +43,16 @@ MACHINE-FIRST ENTRYPOINT.
 - `AUTHORED_RECEIVER != SOURCE_EVIDENCE`.
 - Reference methodologies do not become parent or canonical authority.
 - Compatibility is always scope-qualified.
-- PR #3 `compatible` means compatible with exact pinned parent evidence only.
+- Pinned `compatible` means compatible with exact pinned parent evidence only.
 - Never infer current compatibility from a drift class or adjacent version.
-- Design reports, drift reports, and compatibility reports are derived/non-canonical by default.
+- Consumer scores measure exact-fixture conformance only.
+- Synthetic conformance manifests must set `claims_execution: false`.
+- Consumer comparisons require identical fixture and parent-evidence identity.
+- Adapters translate transport only and must preserve annotations exactly.
+- Adapter output, reports, scores, and fingerprints do not become source evidence.
+- Design reports, drift reports, compatibility reports, evaluations, comparisons, and adapter reports are derived/non-canonical by default.
 
-## PR #2 machine interface
+## Drift interface
 
 ```text
 ./int check-drift
@@ -54,24 +60,9 @@ MACHINE-FIRST ENTRYPOINT.
 ./int explain-drift
 ```
 
-Drift taxonomy is exactly:
+Drift taxonomy is exactly `NO_DRIFT`, `CONTENT_DRIFT`, `SCHEMA_DRIFT`, `SEMANTIC_DRIFT`, `CAPABILITY_DRIFT`, `AUTHORITY_DRIFT`, `BREAKING_DRIFT`, and `SOURCE_UNAVAILABLE`.
 
-```text
-NO_DRIFT
-CONTENT_DRIFT
-SCHEMA_DRIFT
-SEMANTIC_DRIFT
-CAPABILITY_DRIFT
-AUTHORITY_DRIFT
-BREAKING_DRIFT
-SOURCE_UNAVAILABLE
-```
-
-Typed outcomes are `INT_OK`, `INT_PARENT_DRIFT_DETECTED`, `INT_PARENT_SOURCE_UNAVAILABLE`, `INT_PARENT_SNAPSHOT_INVALID`, `INT_PARENT_RECEIPT_MISMATCH`, `INT_PARENT_CONTRACT_MISSING`, `INT_DRIFT_CLASSIFICATION_UNRESOLVED`, `INT_BREAKING_DRIFT`, and `INT_REVIEW_REQUIRED`.
-
-Canonical drift JSON contains no generation timestamp. A changed byte is not automatically breaking semantic drift. Unknown impact requires review.
-
-## PR #3 machine interface
+## Compatibility interface
 
 ```text
 python3 tools/run_batteries.py
@@ -79,9 +70,40 @@ python3 tools/run_batteries.py --json
 python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bootstrap.json
 ```
 
-Compatibility states are exactly `compatible`, `incompatible`, `untested`, and `unknown`.
+Compatibility states are exactly `compatible`, `incompatible`, `untested`, and `unknown`. The committed report does not establish current live-parent compatibility.
 
-The committed baseline report is `compatibility/reports/pinned-bootstrap.json`. Its parent identities, case results, and fingerprint are deterministic. The report does not establish current live-parent compatibility.
+## Consumer evaluation interface
+
+```text
+./int validate-evaluations
+./int evaluate --run <run.json> [--json]
+./int compare-evaluations --left <report.json> --right <report.json> [--json]
+```
+
+Metrics are exactly:
+
+```text
+provenance_retention
+unknown_preservation
+conflict_preservation
+register_satire_preservation
+mrs_interpretation
+mode_boundary_discipline
+invented_history_penalty
+```
+
+Reports bind the exact evaluation-index SHA-256 and exact pinned parent-evidence identity. Comparisons reject identity mismatch.
+
+## Adapter interface
+
+```text
+./int validate-adapters
+./int adapt --adapter generic --input <envelope.json> [--json]
+./int adapt --adapter openai --input <envelope.json> [--json]
+./int adapt --adapter ollama --input <envelope.json> [--json]
+```
+
+All adapters preserve messages, epistemic state, claim maturity, scenario, register, provenance, mode/bridge state, and drift state. Known/retrieved/inferred/conflict require provenance. Material cross-mode inference without a bridge is blocked.
 
 ## Founding sources
 
@@ -94,6 +116,10 @@ The committed baseline report is `compatibility/reports/pinned-bootstrap.json`. 
 - `python3 tools/validate_int.py`
 - `python3 tools/drift.py validate-snapshot --json`
 - `./int check-drift`
-- `./int check-drift --json`
 - `./int explain-drift`
 - `python3 tools/run_batteries.py`
+- `./int validate-evaluations`
+- `./int evaluate`
+- `./int compare-evaluations`
+- `./int validate-adapters`
+- `./int adapt`

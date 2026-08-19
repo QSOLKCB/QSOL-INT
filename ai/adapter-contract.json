@@ -1,0 +1,53 @@
+{
+  "type": "qsol-int-adapter-contract",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "status": "implemented",
+  "adapters": [
+    "generic",
+    "openai",
+    "ollama"
+  ],
+  "canonical_envelope": {
+    "type": "qsol-int-adapter-envelope",
+    "required_annotations": [
+      "epistemic_state",
+      "claim_maturity",
+      "scenario",
+      "register",
+      "provenance",
+      "mode",
+      "drift"
+    ]
+  },
+  "authority": {
+    "adapters_are_transport_only": true,
+    "adapter_output_is_source_evidence": false,
+    "adapter_may_redefine_parent_semantics": false,
+    "runtime_model_identity_is_configuration_not_int_fact": true
+  },
+  "rules": [
+    "messages_and_annotations_are_preserved_exactly",
+    "unknown_conflict_register_scenario_and_drift_remain_visible",
+    "known_retrieved_inferred_and_conflict_claims_require_provenance",
+    "conflict_requires_at_least_two_source_records",
+    "material_cross_mode_inference_requires_a_declared_bridge",
+    "drift_or_unavailable_state_requires_review",
+    "transport_templates_embed_no_api_keys",
+    "transport_templates_leave_model_identity_as_an_explicit_placeholder",
+    "adapter_receipts_prove_serialization_identity_not_truth_authorship_or_compatibility"
+  ],
+  "failure_codes": [
+    "INT_ADAPTER_CONTRACT_INVALID",
+    "INT_ADAPTER_INDEX_INVALID",
+    "INT_ADAPTER_FIXTURE_INVALID",
+    "INT_ADAPTER_ENVELOPE_INVALID",
+    "INT_ADAPTER_PROVENANCE_REQUIRED",
+    "INT_ADAPTER_CONFLICT_PROVENANCE_INCOMPLETE",
+    "INT_CROSS_MODE_BRIDGE_REQUIRED",
+    "INT_ADAPTER_DRIFT_REVIEW_REQUIRED",
+    "INT_ADAPTER_SEMANTIC_LOSS",
+    "INT_ADAPTER_REPORT_INVALID",
+    "INT_ADAPTER_UNKNOWN"
+  ]
+}

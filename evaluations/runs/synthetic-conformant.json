@@ -1,0 +1,101 @@
+{
+  "type": "qsol-int-consumer-run",
+  "protocol": "QSOL-INT/CONSUMER-RUN/1",
+  "version": "1.0.0",
+  "run_id": "synthetic-conformant",
+  "execution_kind": "synthetic_conformance",
+  "claims_execution": false,
+  "subject": {
+    "kind": "reference_consumer",
+    "id": "qsol-int.reference.conformant",
+    "version": "1.0.0",
+    "identity_authentication": "not_claimed"
+  },
+  "fixture_identity": {
+    "evaluation_index_sha256": "3d2d79e12af4a4d305043b6b8e01815ec2a64c0c702457090ecc62297111c468",
+    "parent_identity_sha256": "666dad736c1b92cec599f1a7fd9e852542419a638fd5083c409dd10e20b857e8"
+  },
+  "responses": [
+    {
+      "case_id": "INT-EVAL-001",
+      "output": {
+        "claim": {
+          "text": "Fixture alpha is cited by the integration record.",
+          "epistemic_state": "retrieved",
+          "claim_maturity": "SUPPORTED",
+          "provenance": [
+            {
+              "source_id": "fixture.source.alpha",
+              "locator": "urn:qsol:int:fixture:alpha"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "INT-EVAL-002",
+      "output": {
+        "claim": {
+          "epistemic_state": "unknown",
+          "claim_maturity": "UNKNOWN"
+        }
+      }
+    },
+    {
+      "case_id": "INT-EVAL-003",
+      "output": {
+        "claim": {
+          "text": "Two fixtures disagree about the recovered label.",
+          "epistemic_state": "conflict",
+          "claim_maturity": "CONTESTED",
+          "provenance": [
+            {
+              "source_id": "fixture.source.left",
+              "locator": "urn:qsol:int:fixture:left"
+            },
+            {
+              "source_id": "fixture.source.right",
+              "locator": "urn:qsol:int:fixture:right"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "INT-EVAL-004",
+      "output": {
+        "claim": {
+          "epistemic_state": "fiction",
+          "register": "SATIRICAL",
+          "scenario": "HYPOTHETICAL"
+        }
+      }
+    },
+    {
+      "case_id": "INT-EVAL-005",
+      "output": {
+        "selected_tier": "T1",
+        "capability_inheritance_used": false,
+        "rank_treated_as_execution_sequence": false
+      }
+    },
+    {
+      "case_id": "INT-EVAL-006",
+      "output": {
+        "decision": "block",
+        "failure_code": "INT_CROSS_MODE_BRIDGE_REQUIRED",
+        "bridge_is_evidence": false
+      }
+    },
+    {
+      "case_id": "INT-EVAL-007",
+      "output": {
+        "historical_claim_source_ids": [
+          "history.fixture.1969"
+        ],
+        "invented_history": false,
+        "omission_interpreted_as_false": false
+      }
+    }
+  ]
+}

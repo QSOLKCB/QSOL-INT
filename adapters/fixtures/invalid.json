@@ -1,0 +1,33 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-008",
+  "messages": [
+    {
+      "role": "user",
+      "content": "This envelope is intentionally malformed."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "known",
+    "claim_maturity": "ESTABLISHED",
+    "scenario": "ACTUAL",
+    "provenance": [
+      {
+        "source_id": "fixture.source.valid",
+        "locator": "urn:qsol:int:adapter:valid"
+      }
+    ],
+    "mode": {
+      "primary": "engineering",
+      "secondary": [],
+      "bridges": [],
+      "material_cross_domain": false
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

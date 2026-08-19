@@ -32,6 +32,8 @@ QSOL-INT
 
 ## PR #1 — Bootstrap and clean the founding design
 
+**Status: implemented and merged.**
+
 - [x] Preserve the SUBSTRATE / ARK / INT three-layer framing.
 - [x] Replace fixed epistemic-state-to-tier mapping with capability-based composition.
 - [x] Pin current SUBSTRATE and ARK contract evidence.
@@ -47,7 +49,7 @@ QSOL-INT
 
 ## PR #2 — Parent Snapshots and Drift Detection
 
-**Status: implemented on `agent/parent-snapshots-drift-detection`. Drift detection does not retroactively widen PR #3 compatibility scope.**
+**Status: implemented and merged through repository PR #3. Drift detection does not retroactively widen pinned compatibility scope.**
 
 ### Goal
 
@@ -122,7 +124,7 @@ A changed byte is not automatically breaking semantic drift.
 
 ## PR #3 — Cross-Repo Composition Batteries and Compatibility Reports
 
-**Status: implemented. PR #2 now supplies drift evidence, but PR #3 compatibility remains pinned-evidence scoped.**
+**Status: implemented and merged. PR #2 supplies drift evidence, but compatibility remains exact-pinned-evidence scoped.**
 
 ### Deterministic battery suite
 
@@ -155,14 +157,14 @@ A changed byte is not automatically breaking semantic drift.
 - [x] Require byte-identical report regeneration in CI.
 - [x] Distinguish `compatible`, `incompatible`, `untested`, and `unknown`.
 - [x] Never infer compatibility from adjacent versions.
-- [x] Scope PR #3 compatibility to `pinned_parent_evidence_only`.
+- [x] Scope compatibility to `pinned_parent_evidence_only`.
 - [x] Keep current-parent compatibility unclaimed until changed parent evidence is explicitly evaluated.
 
 Core invariant:
 
 > **Perfect preservation must never increase epistemic authority.**
 
-PR #3 result semantics:
+Result semantics:
 
 ```text
 pinned compatibility: compatible
@@ -181,29 +183,74 @@ current-parent compatibility: NOT CLAIMED
 
 ## PR #4 — Consumer Evaluations
 
-- [ ] Deterministic consumer evaluation inputs.
-- [ ] Model/agent run manifests.
-- [ ] Provenance-retention score.
-- [ ] Unknown-preservation score.
-- [ ] Conflict-preservation score.
-- [ ] Register/satire-preservation score.
-- [ ] MRS-interpretation score.
-- [ ] Mode-boundary-discipline score.
-- [ ] Invented-history penalty.
-- [ ] Consumer comparisons require exact fixture and parent-evidence identity.
-- [ ] Reports remain derived and non-canonical.
+**Status: implemented in this PR. Synthetic reference runs do not claim model or agent execution.**
+
+Implemented commands:
+
+```bash
+./int validate-evaluations
+./int evaluate --run <run.json>
+./int evaluate --run <run.json> --json
+./int compare-evaluations --left <report.json> --right <report.json>
+```
+
+- [x] Deterministic consumer evaluation inputs.
+- [x] Model/agent run manifests.
+- [x] Provenance-retention score.
+- [x] Unknown-preservation score.
+- [x] Conflict-preservation score.
+- [x] Register/satire-preservation score.
+- [x] MRS-interpretation score.
+- [x] Mode-boundary-discipline score.
+- [x] Invented-history penalty.
+- [x] Consumer comparisons require exact fixture and parent-evidence identity.
+- [x] Reports remain derived and non-canonical.
+
+### Evaluation discipline
+
+- Each metric has one deterministic synthetic case with machine-readable assertions.
+- Run manifests bind the exact evaluation-index SHA-256 and exact pinned parent-evidence identity.
+- `synthetic_conformance` runs must set `claims_execution: false`.
+- Model, agent, and deterministic-replay runs must declare execution explicitly.
+- A score measures only conformance to the declared fixture set.
+- A higher score does not establish general intelligence, safety, truthfulness, or broad model quality.
+- Comparisons fail closed when evaluation or parent identities differ.
+- Reports and comparisons carry deterministic SHA-256 fingerprints without becoming parent authority.
+
+Committed reference artifacts include a conformant synthetic run, an adversarial synthetic run, their deterministic reports, and an identity-bound comparison.
 
 ---
 
 ## PR #5 — Adapters and Integration Fixtures
 
-- [ ] Generic JSON adapter.
-- [ ] OpenAI adapter.
-- [ ] Ollama adapter.
-- [ ] Additional adapters only when canonical INT semantics survive transport.
-- [ ] Valid, invalid, unknown, conflict, satire, cross-mode, missing-provenance, and drift fixtures.
+**Status: implemented in this PR. Adapters translate transport and do not redefine truth.**
 
-Adapters translate transport. They do not redefine truth.
+Implemented commands:
+
+```bash
+./int validate-adapters
+./int adapt --adapter generic --input <envelope.json>
+./int adapt --adapter openai --input <envelope.json>
+./int adapt --adapter ollama --input <envelope.json>
+```
+
+- [x] Generic JSON adapter.
+- [x] OpenAI-compatible adapter.
+- [x] Ollama adapter.
+- [x] Additional adapters only when canonical INT semantics survive transport.
+- [x] Valid, invalid, unknown, conflict, satire, cross-mode, missing-provenance, and drift fixtures.
+
+### Adapter discipline
+
+- The canonical envelope preserves messages, epistemic state, claim maturity, scenario, register, provenance, mode/bridge state, and drift state.
+- Known, retrieved, inferred, and conflict states require provenance.
+- Conflict requires at least two source records.
+- Material cross-mode inference without a bridge is blocked.
+- Drift or unavailable state remains review-required.
+- OpenAI-compatible and Ollama outputs leave model identity as an explicit runtime placeholder.
+- No API key is embedded.
+- Semantic receipts prove compared serialization identity only.
+- The deterministic conformance matrix covers three adapters across eight fixture kinds.
 
 ---
 

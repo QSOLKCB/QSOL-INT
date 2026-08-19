@@ -1,0 +1,35 @@
+{
+  "id": "INT-EVAL-001",
+  "metric": "provenance_retention",
+  "synthetic": true,
+  "input": {
+    "claim": {
+      "text": "Fixture alpha is cited by the integration record.",
+      "epistemic_state": "retrieved",
+      "claim_maturity": "SUPPORTED",
+      "provenance": [
+        {
+          "source_id": "fixture.source.alpha",
+          "locator": "urn:qsol:int:fixture:alpha"
+        }
+      ]
+    }
+  },
+  "assertions": [
+    {
+      "op": "preserves",
+      "input_path": "claim.epistemic_state",
+      "output_path": "claim.epistemic_state"
+    },
+    {
+      "op": "preserves",
+      "input_path": "claim.claim_maturity",
+      "output_path": "claim.claim_maturity"
+    },
+    {
+      "op": "preserves",
+      "input_path": "claim.provenance",
+      "output_path": "claim.provenance"
+    }
+  ]
+}

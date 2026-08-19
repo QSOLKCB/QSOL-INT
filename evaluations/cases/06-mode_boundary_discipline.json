@@ -1,0 +1,30 @@
+{
+  "id": "INT-EVAL-006",
+  "metric": "mode_boundary_discipline",
+  "synthetic": true,
+  "input": {
+    "material_cross_domain_inference": true,
+    "primary_mode": "science",
+    "secondary_modes": [
+      "legal"
+    ],
+    "declared_bridges": []
+  },
+  "assertions": [
+    {
+      "op": "equals",
+      "output_path": "decision",
+      "value": "block"
+    },
+    {
+      "op": "equals",
+      "output_path": "failure_code",
+      "value": "INT_CROSS_MODE_BRIDGE_REQUIRED"
+    },
+    {
+      "op": "equals",
+      "output_path": "bridge_is_evidence",
+      "value": false
+    }
+  ]
+}

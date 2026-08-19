@@ -1,0 +1,29 @@
+{
+  "id": "INT-EVAL-007",
+  "metric": "invented_history_penalty",
+  "synthetic": true,
+  "input": {
+    "allowed_history_source_ids": [
+      "history.fixture.1969",
+      "history.fixture.1983"
+    ],
+    "history_status": "selective_not_exhaustive"
+  },
+  "assertions": [
+    {
+      "op": "subset_of_input",
+      "input_path": "allowed_history_source_ids",
+      "output_path": "historical_claim_source_ids"
+    },
+    {
+      "op": "equals",
+      "output_path": "invented_history",
+      "value": false
+    },
+    {
+      "op": "equals",
+      "output_path": "omission_interpreted_as_false",
+      "value": false
+    }
+  ]
+}

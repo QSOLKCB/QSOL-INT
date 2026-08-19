@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Consumer Evaluation Index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "scope",
+    "contract",
+    "contract_sha256",
+    "parent_contract",
+    "parent_identity",
+    "parent_identity_sha256",
+    "cases",
+    "case_sha256",
+    "required_case_ids",
+    "metrics",
+    "derived_reports_are_noncanonical"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-consumer-evaluation-index"
+    },
+    "protocol": {
+      "const": "QSOL-INT/CONSUMER-EVALUATION/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "scope": {
+      "const": "exact_fixture_and_pinned_parent_evidence_only"
+    },
+    "contract": {
+      "const": "ai/consumer-evaluation-contract.json"
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "parent_contract": {
+      "const": "ai/parent-contracts.json"
+    },
+    "parent_identity": {
+      "type": "object"
+    },
+    "parent_identity_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "case_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "required_case_ids": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^INT-EVAL-[0-9]{3}$"
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "derived_reports_are_noncanonical": {
+      "const": true
+    }
+  }
+}

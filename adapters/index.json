@@ -1,0 +1,77 @@
+{
+  "type": "qsol-int-adapter-fixture-index",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "contract": "ai/adapter-contract.json",
+  "contract_sha256": "a47162f165679a992bd66a77c1e66b15e42b7e2774240e123288015f4c13142a",
+  "adapters": [
+    "generic",
+    "openai",
+    "ollama"
+  ],
+  "fixtures": [
+    "adapters/fixtures/valid.json",
+    "adapters/fixtures/unknown.json",
+    "adapters/fixtures/conflict.json",
+    "adapters/fixtures/satire.json",
+    "adapters/fixtures/cross-mode.json",
+    "adapters/fixtures/missing-provenance.json",
+    "adapters/fixtures/drift.json",
+    "adapters/fixtures/invalid.json"
+  ],
+  "fixture_sha256": {
+    "adapters/fixtures/valid.json": "63dc4481a26381ce0eb9f49dca7deb043691cf50bfe87f84dccfa6050901c1c5",
+    "adapters/fixtures/unknown.json": "4fa0d16488dcd530d3807fb8792d4249cb5d5d3032c9d7839ad292051927c5ac",
+    "adapters/fixtures/conflict.json": "4872390a79cafb57adf49b2f2c52c687c653c3c52c4e712a5b76e08e5a1f7e4c",
+    "adapters/fixtures/satire.json": "bbbae132a80884dae2471bf18ce492c21efa5d7a971bb14d3931047648ab8c72",
+    "adapters/fixtures/cross-mode.json": "fcd4b361abf8f4e0bc1179bf2216053bb19d06198ca0ec5f6f652f524829d982",
+    "adapters/fixtures/missing-provenance.json": "9c85d6c9afc780657f1ca7cab7a4f93562d0dbb6507c5708e7059de73c28d184",
+    "adapters/fixtures/drift.json": "7a80515c9fdd1a55b4af0d1a4ab7399bd9e9f4ddba9ec739df0e7a753f53fc78",
+    "adapters/fixtures/invalid.json": "950cdacc10d944c279171d8e3e4c22c0cb03e0eef8ba1706c39e4b936833e68c"
+  },
+  "expected": {
+    "adapters/fixtures/valid.json": {
+      "decision": "allow",
+      "failure_code": null
+    },
+    "adapters/fixtures/unknown.json": {
+      "decision": "allow",
+      "failure_code": null
+    },
+    "adapters/fixtures/conflict.json": {
+      "decision": "allow",
+      "failure_code": null
+    },
+    "adapters/fixtures/satire.json": {
+      "decision": "allow",
+      "failure_code": null
+    },
+    "adapters/fixtures/cross-mode.json": {
+      "decision": "block",
+      "failure_code": "INT_CROSS_MODE_BRIDGE_REQUIRED"
+    },
+    "adapters/fixtures/missing-provenance.json": {
+      "decision": "reject",
+      "failure_code": "INT_ADAPTER_PROVENANCE_REQUIRED"
+    },
+    "adapters/fixtures/drift.json": {
+      "decision": "allow",
+      "failure_code": null
+    },
+    "adapters/fixtures/invalid.json": {
+      "decision": "reject",
+      "failure_code": "INT_ADAPTER_ENVELOPE_INVALID"
+    }
+  },
+  "required_fixture_kinds": [
+    "valid",
+    "invalid",
+    "unknown",
+    "conflict",
+    "satire",
+    "cross-mode",
+    "missing-provenance",
+    "drift"
+  ],
+  "derived_reports_are_noncanonical": true
+}

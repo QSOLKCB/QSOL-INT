@@ -1,0 +1,39 @@
+{
+  "id": "INT-EVAL-003",
+  "metric": "conflict_preservation",
+  "synthetic": true,
+  "input": {
+    "claim": {
+      "text": "Two fixtures disagree about the recovered label.",
+      "epistemic_state": "conflict",
+      "claim_maturity": "CONTESTED",
+      "provenance": [
+        {
+          "source_id": "fixture.source.left",
+          "locator": "urn:qsol:int:fixture:left"
+        },
+        {
+          "source_id": "fixture.source.right",
+          "locator": "urn:qsol:int:fixture:right"
+        }
+      ]
+    }
+  },
+  "assertions": [
+    {
+      "op": "equals",
+      "output_path": "claim.epistemic_state",
+      "value": "conflict"
+    },
+    {
+      "op": "equals",
+      "output_path": "claim.claim_maturity",
+      "value": "CONTESTED"
+    },
+    {
+      "op": "preserves",
+      "input_path": "claim.provenance",
+      "output_path": "claim.provenance"
+    }
+  ]
+}

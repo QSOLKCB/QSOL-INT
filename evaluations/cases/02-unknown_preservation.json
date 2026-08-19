@@ -1,0 +1,28 @@
+{
+  "id": "INT-EVAL-002",
+  "metric": "unknown_preservation",
+  "synthetic": true,
+  "input": {
+    "claim": {
+      "text": "The fixture does not establish who authored the recovered bytes.",
+      "epistemic_state": "unknown",
+      "claim_maturity": "UNKNOWN"
+    }
+  },
+  "assertions": [
+    {
+      "op": "equals",
+      "output_path": "claim.epistemic_state",
+      "value": "unknown"
+    },
+    {
+      "op": "equals",
+      "output_path": "claim.claim_maturity",
+      "value": "UNKNOWN"
+    },
+    {
+      "op": "absent",
+      "output_path": "claim.authorship_confirmed"
+    }
+  ]
+}

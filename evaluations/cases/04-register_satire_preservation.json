@@ -1,0 +1,35 @@
+{
+  "id": "INT-EVAL-004",
+  "metric": "register_satire_preservation",
+  "synthetic": true,
+  "input": {
+    "claim": {
+      "text": "The compiler has filed a formal complaint with the moon.",
+      "epistemic_state": "fiction",
+      "claim_maturity": "UNKNOWN",
+      "register": "SATIRICAL",
+      "scenario": "HYPOTHETICAL"
+    }
+  },
+  "assertions": [
+    {
+      "op": "preserves",
+      "input_path": "claim.epistemic_state",
+      "output_path": "claim.epistemic_state"
+    },
+    {
+      "op": "preserves",
+      "input_path": "claim.register",
+      "output_path": "claim.register"
+    },
+    {
+      "op": "preserves",
+      "input_path": "claim.scenario",
+      "output_path": "claim.scenario"
+    },
+    {
+      "op": "absent",
+      "output_path": "claim.biographical_fact"
+    }
+  ]
+}

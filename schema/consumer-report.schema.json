@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Consumer Evaluation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "derived_noncanonical",
+    "authority",
+    "evaluation_identity",
+    "run",
+    "metrics",
+    "case_results",
+    "summary",
+    "fingerprint_sha256"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-consumer-evaluation-report"
+    },
+    "protocol": {
+      "const": "QSOL-INT/CONSUMER-EVALUATION/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "derived_noncanonical": {
+      "const": true
+    },
+    "authority": {
+      "type": "object"
+    },
+    "evaluation_identity": {
+      "type": "object"
+    },
+    "run": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "case_results": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object"
+      }
+    },
+    "summary": {
+      "type": "object"
+    },
+    "fingerprint_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

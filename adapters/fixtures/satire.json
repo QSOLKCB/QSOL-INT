@@ -1,0 +1,29 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-004",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Keep the joke labelled as satire."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "fiction",
+    "claim_maturity": "UNKNOWN",
+    "scenario": "HYPOTHETICAL",
+    "register": "SATIRICAL",
+    "provenance": [],
+    "mode": {
+      "primary": "engineering",
+      "secondary": [],
+      "bridges": [],
+      "material_cross_domain": false
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

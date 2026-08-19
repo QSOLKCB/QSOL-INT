@@ -1,0 +1,36 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-005",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Make a material legal inference from a science claim."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "known",
+    "claim_maturity": "ESTABLISHED",
+    "scenario": "ACTUAL",
+    "register": "LITERAL",
+    "provenance": [
+      {
+        "source_id": "fixture.source.valid",
+        "locator": "urn:qsol:int:adapter:valid"
+      }
+    ],
+    "mode": {
+      "primary": "science",
+      "secondary": [
+        "legal"
+      ],
+      "bridges": [],
+      "material_cross_domain": true
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

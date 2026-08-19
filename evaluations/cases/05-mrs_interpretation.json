@@ -1,0 +1,55 @@
+{
+  "id": "INT-EVAL-005",
+  "metric": "mrs_interpretation",
+  "synthetic": true,
+  "input": {
+    "requested_capabilities": [
+      "verify_sha256"
+    ],
+    "implemented_tiers": [
+      {
+        "id": "T0",
+        "rank": 0,
+        "capabilities": [
+          "inspect_canary",
+          "carry_receipt"
+        ]
+      },
+      {
+        "id": "T1",
+        "rank": 1,
+        "capabilities": [
+          "inspect_canary",
+          "carry_receipt",
+          "verify_sha256",
+          "verify_canary"
+        ]
+      },
+      {
+        "id": "T2",
+        "rank": 2,
+        "capabilities": [
+          "standalone_hash_implementation"
+        ]
+      }
+    ],
+    "selection_rule": "lowest-rank implemented tier with every explicitly declared requested capability"
+  },
+  "assertions": [
+    {
+      "op": "equals",
+      "output_path": "selected_tier",
+      "value": "T1"
+    },
+    {
+      "op": "equals",
+      "output_path": "capability_inheritance_used",
+      "value": false
+    },
+    {
+      "op": "equals",
+      "output_path": "rank_treated_as_execution_sequence",
+      "value": false
+    }
+  ]
+}

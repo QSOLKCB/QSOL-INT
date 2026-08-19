@@ -1,4 +1,33 @@
 #!/bin/sh
 # SPDX-License-Identifier: Apache-2.0
 set -eu
-exec python3 "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/tools/drift.py" "$@"
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+command=${1:-}
+case "$command" in
+  check-drift|explain-drift|validate-snapshot)
+    exec python3 "$ROOT/tools/drift.py" "$@"
+    ;;
+  evaluate|compare-evaluations|validate-evaluations)
+    exec python3 "$ROOT/tools/evaluate_consumer.py" "$@"
+    ;;
+  adapt|validate-adapters)
+    exec python3 "$ROOT/tools/adapt.py" "$@"
+    ;;
+  help|-h|--help|"")
+    cat <<'EOF'
+QSOL-INT commands:
+  ./int check-drift [--json]
+  ./int explain-drift [--json]
+  ./int validate-snapshot [--json]
+  ./int validate-evaluations
+  ./int evaluate --run <run.json> [--json] [--output <report.json>]
+  ./int compare-evaluations --left <report.json> --right <report.json> [--json]
+  ./int validate-adapters [--json]
+  ./int adapt --adapter <generic|openai|ollama> --input <envelope.json> [--json]
+EOF
+    ;;
+  *)
+    echo "INT_COMMAND_UNKNOWN: $command" >&2
+    exit 64
+    ;;
+esac

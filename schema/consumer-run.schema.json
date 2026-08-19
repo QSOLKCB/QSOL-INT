@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Consumer Run Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "run_id",
+    "execution_kind",
+    "claims_execution",
+    "subject",
+    "fixture_identity",
+    "responses"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-consumer-run"
+    },
+    "protocol": {
+      "const": "QSOL-INT/CONSUMER-RUN/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_kind": {
+      "enum": [
+        "synthetic_conformance",
+        "model_execution",
+        "agent_execution",
+        "deterministic_replay"
+      ]
+    },
+    "claims_execution": {
+      "type": "boolean"
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "version",
+        "identity_authentication"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity_authentication": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "fixture_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_index_sha256",
+        "parent_identity_sha256"
+      ],
+      "properties": {
+        "evaluation_index_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parent_identity_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "output"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "pattern": "^INT-EVAL-[0-9]{3}$"
+          },
+          "output": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
