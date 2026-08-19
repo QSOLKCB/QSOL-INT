@@ -1,0 +1,56 @@
+name: QSOL-INT Consumer Evaluations and Adapters
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluations-adapters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate consumer evaluation contracts
+        run: python3 tools/evaluate_consumer.py validate-evaluations
+      - name: Regenerate committed consumer reports
+        run: |
+          python3 tools/evaluate_consumer.py evaluate \
+            --run evaluations/runs/synthetic-conformant.json \
+            --output /tmp/synthetic-conformant.json
+          cmp evaluations/reports/synthetic-conformant.json /tmp/synthetic-conformant.json
+          python3 tools/evaluate_consumer.py evaluate \
+            --run evaluations/runs/synthetic-adversarial.json \
+            --output /tmp/synthetic-adversarial.json
+          cmp evaluations/reports/synthetic-adversarial.json /tmp/synthetic-adversarial.json
+      - name: Regenerate committed consumer comparison
+        run: |
+          python3 tools/evaluate_consumer.py compare-evaluations \
+            --left evaluations/reports/synthetic-conformant.json \
+            --right evaluations/reports/synthetic-adversarial.json \
+            --output /tmp/synthetic-comparison.json
+          cmp evaluations/comparisons/synthetic-conformant-vs-adversarial.json /tmp/synthetic-comparison.json
+      - name: Validate adapter conformance and regeneration
+        run: |
+          python3 tools/adapt.py validate-adapters \
+            --validate-report adapters/reports/conformance.json \
+            --output /tmp/adapter-conformance.json
+          cmp adapters/reports/conformance.json /tmp/adapter-conformance.json
+      - name: Run evaluation and adapter regressions
+        run: python3 -m unittest tests.test_evaluations tests.test_adapters -v
+      - name: Validate existing INT contracts
+        run: python3 tools/validate_int.py
+      - name: Parse new JSON artifacts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for root in (Path('evaluations'), Path('adapters'), Path('ai'), Path('schema')):
+              for path in root.rglob('*.json'):
+                  json.loads(path.read_text(encoding='utf-8'))
+                  print(path)
+          PY

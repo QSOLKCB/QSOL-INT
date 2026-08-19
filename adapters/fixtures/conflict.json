@@ -1,0 +1,38 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-003",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Preserve the conflict."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "conflict",
+    "claim_maturity": "CONTESTED",
+    "scenario": "ACTUAL",
+    "register": "LITERAL",
+    "provenance": [
+      {
+        "source_id": "fixture.left",
+        "locator": "urn:qsol:int:left"
+      },
+      {
+        "source_id": "fixture.right",
+        "locator": "urn:qsol:int:right"
+      }
+    ],
+    "mode": {
+      "primary": "engineering",
+      "secondary": [],
+      "bridges": [],
+      "material_cross_domain": false
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

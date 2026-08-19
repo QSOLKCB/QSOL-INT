@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Consumer Evaluation Comparison",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "derived_noncanonical",
+    "authority",
+    "evaluation_identity",
+    "left",
+    "right",
+    "metric_deltas",
+    "winner_by_overall_fixture_score",
+    "fingerprint_sha256"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-consumer-evaluation-comparison"
+    },
+    "protocol": {
+      "const": "QSOL-INT/CONSUMER-EVALUATION/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "derived_noncanonical": {
+      "const": true
+    },
+    "authority": {
+      "type": "object"
+    },
+    "evaluation_identity": {
+      "type": "object"
+    },
+    "left": {
+      "type": "object"
+    },
+    "right": {
+      "type": "object"
+    },
+    "metric_deltas": {
+      "type": "object"
+    },
+    "winner_by_overall_fixture_score": {
+      "enum": [
+        "left",
+        "right",
+        "tie"
+      ]
+    },
+    "fingerprint_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

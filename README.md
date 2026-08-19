@@ -4,9 +4,9 @@
 
 QSOL-INT is the vendor-neutral integration layer between:
 
-- **QSOL-SUBSTRATE** — public context, epistemic state, provenance, modes, source policy, and claim entitlement;
-- **QSOL-ARK** — deterministic recovery, constrained-environment verification, Minimum Recoverable Substrate (MRS), and future model reconstruction;
-- **QSOL-INT** — composition rules that preserve each parent's authority while detecting drift, overclaiming, and integration breakage.
+- **QSOL-SUBSTRATE**: public context, epistemic state, provenance, modes, source policy, and claim entitlement;
+- **QSOL-ARK**: deterministic recovery, constrained-environment verification, Minimum Recoverable Substrate (MRS), and future model reconstruction;
+- **QSOL-INT**: composition rules that preserve each parent's authority while detecting drift, overclaiming, transport loss, and integration breakage.
 
 QSOL-INT is **not** a third knowledge base and does not redefine either parent protocol.
 
@@ -24,7 +24,7 @@ UNAVAILABLE != CONTRADICTED
 PERFECT_PRESERVATION_MUST_NOT_INCREASE_EPISTEMIC_AUTHORITY
 ```
 
-`QSOLKCB/substratism` is a reference methodology only — **not** a parent protocol and not canonical INT authority. Its useful pattern is fixture/receiver separation: deterministic project-authored projections remain explanations rather than evidence for the underlying source claim.
+`QSOLKCB/substratism` is a reference methodology only, not a parent protocol and not canonical INT authority. Its useful pattern is fixture/receiver separation: deterministic project-authored projections remain explanations rather than evidence for the underlying source claim.
 
 ## Integrity is not authenticity
 
@@ -54,9 +54,7 @@ See `docs/DRIFT.md` for outcome codes and classification details.
 
 Pins are offline evidence, not eternal authority. Live parent state may supersede stale pins.
 
-## PR #3 — cross-repo composition batteries
-
-PR #3 makes the integration rules executable.
+## Cross-repo composition batteries
 
 ```bash
 python3 tools/run_batteries.py
@@ -66,16 +64,50 @@ python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bo
 
 The deterministic battery suite covers provenance retention; unknown preservation; conflict preservation; satire/register preservation; cross-mode bridge discipline; recovery without authority escalation; perfect-hash without evidence escalation; ARK capability invention; and stale-parent/freshness discipline.
 
-The committed PR #3 compatibility report remains intentionally scoped:
+The committed compatibility report remains intentionally scoped:
 
 ```text
 pinned compatibility: compatible
 current-parent compatibility: NOT CLAIMED
 ```
 
-PR #2 can now establish whether live parent contracts differ. Drift detection does not automatically establish compatibility with those changed contracts.
+Drift detection does not automatically establish compatibility with changed parent contracts. The committed compatibility report is a derived integration artifact, fingerprinted over canonical JSON and bound to exact parent commits and Git blob identities.
 
-The committed compatibility report is a **derived integration artifact**, fingerprinted over canonical JSON and bound to exact parent commits and Git blob identities.
+## Consumer evaluations
+
+Consumer evaluations score structured run manifests against seven deterministic synthetic fixtures:
+
+```bash
+./int validate-evaluations
+./int evaluate --run evaluations/runs/synthetic-conformant.json
+./int evaluate --run evaluations/runs/synthetic-conformant.json --json
+./int compare-evaluations \
+  --left evaluations/reports/synthetic-conformant.json \
+  --right evaluations/reports/synthetic-adversarial.json
+```
+
+The metrics are provenance retention, unknown preservation, conflict preservation, register/satire preservation, MRS interpretation, mode-boundary discipline, and an invented-history penalty. Comparisons fail closed unless fixture and parent-evidence identities match exactly.
+
+The committed reference runs are authored synthetic conformance objects. They set `claims_execution: false` and do not claim that a model or agent ran. Reports, comparisons, and scores are derived/non-canonical and measure fixture conformance only.
+
+See `docs/CONSUMER-EVALUATIONS.md`.
+
+## Transport adapters
+
+INT implements generic JSON, OpenAI-compatible, and Ollama transport templates:
+
+```bash
+./int validate-adapters
+./int adapt --adapter generic --input adapters/fixtures/valid.json
+./int adapt --adapter openai --input adapters/fixtures/unknown.json --json
+./int adapt --adapter ollama --input adapters/fixtures/drift.json --json
+```
+
+Every adapter preserves messages and the full semantic annotation object. Unknown, conflict, satire, cross-mode boundaries, missing provenance, and drift remain visible and fail closed where required. Model identifiers remain explicit runtime placeholders and no API keys are embedded.
+
+`adapters/reports/conformance.json` is a deterministic 24-result matrix over three adapters and eight fixture kinds. Adapter receipts prove serialization identity only.
+
+See `docs/ADAPTERS.md`.
 
 ## Founding qBraid specimen
 
@@ -92,9 +124,15 @@ python3 tools/validate_int.py
 python3 tools/drift.py validate-snapshot --json
 python3 tools/run_batteries.py
 python3 tools/run_batteries.py --validate-report compatibility/reports/pinned-bootstrap.json
+python3 tools/evaluate_consumer.py validate-evaluations
+python3 tools/evaluate_consumer.py evaluate \
+  --run evaluations/runs/synthetic-conformant.json \
+  --validate-report evaluations/reports/synthetic-conformant.json
+python3 tools/adapt.py validate-adapters \
+  --validate-report adapters/reports/conformance.json
 python3 -m unittest discover -s tests -v
 ```
 
 Local validation is standard-library only and requires no network access. Live drift checks use public GitHub parent state and fail closed when that evidence is unavailable.
 
-See `README4AI.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/COMPOSITION-BATTERIES.md`, `docs/DRIFT.md`, `docs/QBRAID-REVIEW.md`, `docs/SUBSTRATISM-REFERENCE.md`, and `ROADMAP.md`.
+See `README4AI.md`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/COMPOSITION-BATTERIES.md`, `docs/DRIFT.md`, `docs/CONSUMER-EVALUATIONS.md`, `docs/ADAPTERS.md`, `docs/QBRAID-REVIEW.md`, `docs/SUBSTRATISM-REFERENCE.md`, and `ROADMAP.md`.

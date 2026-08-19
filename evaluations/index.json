@@ -1,0 +1,87 @@
+{
+  "type": "qsol-int-consumer-evaluation-index",
+  "protocol": "QSOL-INT/CONSUMER-EVALUATION/1",
+  "version": "1.0.0",
+  "scope": "exact_fixture_and_pinned_parent_evidence_only",
+  "contract": "ai/consumer-evaluation-contract.json",
+  "contract_sha256": "ba32a03b90ec2f35b6533292bb6cc671e3273ec85249b89ee67c9a50687a031d",
+  "parent_contract": "ai/parent-contracts.json",
+  "parent_identity": {
+    "substrate": {
+      "protocol": "QSOL-SUBSTRATE",
+      "repository": "https://github.com/QSOLKCB/QSOL-SUBSTRATE",
+      "pinned_commit": "60e8cfeefa859df375f9f4d2fdb735edb1249db8",
+      "artifacts": [
+        {
+          "path": "ai/epistemic-contract.json",
+          "git_blob_sha1": "6abd254957843f2a0d42066423a5689099f85b6c"
+        },
+        {
+          "path": "ai/manifest.json",
+          "git_blob_sha1": "bdc57ae303c2ce5b8498e3867d15d1804a59ba30"
+        },
+        {
+          "path": "ai/mode-contract.json",
+          "git_blob_sha1": "9c830b095f59bbd948bf9ea5a8b35127121a7d99"
+        }
+      ]
+    },
+    "ark": {
+      "protocol": "QSOL-ARK",
+      "repository": "https://github.com/QSOLKCB/QSOL-ARK",
+      "pinned_commit": "f2bbf149abb3f8ccbfed158176873d813b66b546",
+      "artifacts": [
+        {
+          "path": "ai/minimum-recoverable-substrate.json",
+          "git_blob_sha1": "1a4860543488357321e1aad24ce36266769c5f39"
+        },
+        {
+          "path": "ai/recovery-tiers.json",
+          "git_blob_sha1": "dc7ea8e37772e677ee09f0e3a1447c2700a74789"
+        },
+        {
+          "path": "manifest.json",
+          "git_blob_sha1": "9016cf8e6641d48e639fb69cd5ad7f98a02840b7"
+        }
+      ]
+    }
+  },
+  "parent_identity_sha256": "666dad736c1b92cec599f1a7fd9e852542419a638fd5083c409dd10e20b857e8",
+  "cases": [
+    "evaluations/cases/01-provenance_retention.json",
+    "evaluations/cases/02-unknown_preservation.json",
+    "evaluations/cases/03-conflict_preservation.json",
+    "evaluations/cases/04-register_satire_preservation.json",
+    "evaluations/cases/05-mrs_interpretation.json",
+    "evaluations/cases/06-mode_boundary_discipline.json",
+    "evaluations/cases/07-invented_history_penalty.json"
+  ],
+  "case_sha256": {
+    "evaluations/cases/01-provenance_retention.json": "033df45311eaf7ed4be44978ed1dd4bd5fc05af2ed98ed9487ddc2eab272ae76",
+    "evaluations/cases/02-unknown_preservation.json": "a9629b33705f9de7769f5c7b92ab3b60e4ab725bab8518911bcefa568ca3b195",
+    "evaluations/cases/03-conflict_preservation.json": "52f6a61a38caef7b52005c3d0ddea060810740c81ddd9bc78413fd65ae3da110",
+    "evaluations/cases/04-register_satire_preservation.json": "23c353debb2661d658635f3cf1f8b5de5a15f5cf50189cb222740e52036654dd",
+    "evaluations/cases/05-mrs_interpretation.json": "998a40ac6f37980e1f284403d3d2d74f00f22c7e286fdb86b95a99ffce636477",
+    "evaluations/cases/06-mode_boundary_discipline.json": "9b3e361888a6c0f67d212a7af088a8234e98f94dd550aed7852bfa95cfe7a7f3",
+    "evaluations/cases/07-invented_history_penalty.json": "752db93261fa18124efddc290b7dc33540e0ca2b78257e4a79bcc3dd9141fe97"
+  },
+  "required_case_ids": [
+    "INT-EVAL-001",
+    "INT-EVAL-002",
+    "INT-EVAL-003",
+    "INT-EVAL-004",
+    "INT-EVAL-005",
+    "INT-EVAL-006",
+    "INT-EVAL-007"
+  ],
+  "metrics": [
+    "provenance_retention",
+    "unknown_preservation",
+    "conflict_preservation",
+    "register_satire_preservation",
+    "mrs_interpretation",
+    "mode_boundary_discipline",
+    "invented_history_penalty"
+  ],
+  "derived_reports_are_noncanonical": true
+}

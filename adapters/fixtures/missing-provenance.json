@@ -1,0 +1,29 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-006",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Repeat the retrieved claim."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "retrieved",
+    "claim_maturity": "SUPPORTED",
+    "scenario": "ACTUAL",
+    "register": "LITERAL",
+    "provenance": [],
+    "mode": {
+      "primary": "engineering",
+      "secondary": [],
+      "bridges": [],
+      "material_cross_domain": false
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

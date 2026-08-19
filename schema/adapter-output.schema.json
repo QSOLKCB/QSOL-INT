@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Adapter Output",
+  "type": "object",
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "adapter",
+    "decision",
+    "failure_code",
+    "transport"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-adapter-output"
+    },
+    "protocol": {
+      "const": "QSOL-INT/ADAPTER/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "adapter": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "allow",
+        "block",
+        "reject"
+      ]
+    },
+    "failure_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_envelope_id": {
+      "type": "string"
+    },
+    "semantic_receipt": {
+      "type": "object"
+    },
+    "transport": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "error": {
+      "type": "string"
+    }
+  }
+}

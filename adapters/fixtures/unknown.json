@@ -1,0 +1,29 @@
+{
+  "type": "qsol-int-adapter-envelope",
+  "protocol": "QSOL-INT/ADAPTER/1",
+  "version": "1.0.0",
+  "id": "INT-ADAPT-FIX-002",
+  "messages": [
+    {
+      "role": "user",
+      "content": "State what is not established."
+    }
+  ],
+  "annotations": {
+    "epistemic_state": "unknown",
+    "claim_maturity": "UNKNOWN",
+    "scenario": "ACTUAL",
+    "register": "LITERAL",
+    "provenance": [],
+    "mode": {
+      "primary": "engineering",
+      "secondary": [],
+      "bridges": [],
+      "material_cross_domain": false
+    },
+    "drift": {
+      "status": "NO_DRIFT",
+      "review_required": false
+    }
+  }
+}

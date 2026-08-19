@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Adapter Fixture Index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "contract",
+    "contract_sha256",
+    "adapters",
+    "fixtures",
+    "fixture_sha256",
+    "expected",
+    "required_fixture_kinds",
+    "derived_reports_are_noncanonical"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-adapter-fixture-index"
+    },
+    "protocol": {
+      "const": "QSOL-INT/ADAPTER/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "contract": {
+      "const": "ai/adapter-contract.json"
+    },
+    "contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "adapters": {
+      "type": "array",
+      "const": [
+        "generic",
+        "openai",
+        "ollama"
+      ]
+    },
+    "fixtures": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "fixture_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "expected": {
+      "type": "object"
+    },
+    "required_fixture_kinds": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "derived_reports_are_noncanonical": {
+      "const": true
+    }
+  }
+}

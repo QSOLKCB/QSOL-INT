@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSOL-INT Adapter Conformance Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "protocol",
+    "version",
+    "derived_noncanonical",
+    "authority",
+    "identity",
+    "adapters",
+    "results",
+    "summary",
+    "fingerprint_sha256"
+  ],
+  "properties": {
+    "type": {
+      "const": "qsol-int-adapter-conformance-report"
+    },
+    "protocol": {
+      "const": "QSOL-INT/ADAPTER/1"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "derived_noncanonical": {
+      "const": true
+    },
+    "authority": {
+      "type": "object"
+    },
+    "identity": {
+      "type": "object"
+    },
+    "adapters": {
+      "type": "array",
+      "const": [
+        "generic",
+        "openai",
+        "ollama"
+      ]
+    },
+    "results": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {
+        "type": "object"
+      }
+    },
+    "summary": {
+      "type": "object"
+    },
+    "fingerprint_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
